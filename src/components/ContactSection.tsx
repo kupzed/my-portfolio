@@ -54,8 +54,9 @@ export default function ContactSection() {
             variants={fadeUp}
             className="mx-auto max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400"
           >
-            I&apos;d love to hear from you! If you have any questions, comments,
-            or feedback, please use the form below.
+            Feel free to contact me. My inbox is always open. Whether you have
+            any questions or just want to say hello, I&apos;ll try my best to
+            back to you!
           </motion.p>
         </motion.div>
 
