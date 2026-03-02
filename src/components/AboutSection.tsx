@@ -64,7 +64,7 @@ export default function AboutSection() {
             className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            About me
+            About Me
           </motion.h2>
         </motion.div>
 

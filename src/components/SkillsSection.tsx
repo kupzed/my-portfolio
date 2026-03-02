@@ -118,7 +118,7 @@ export default function SkillsSection() {
           className="mb-12 text-center font-serif text-4xl font-bold tracking-tight text-gray-900 dark:bg-linear-to-r dark:from-white dark:via-purple-200 dark:to-purple-400 dark:bg-clip-text dark:text-transparent sm:text-5xl md:text-6xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
-          My skills
+          My Skills
         </motion.h2>
 
         {/* ── Tab Navigation ── */}

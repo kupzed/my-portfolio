@@ -149,7 +149,7 @@ export default function HeroSection() {
 
           {/* My Resume */}
           <a
-            href="#"
+            href="https://drive.google.com/file/d/1752AUQMoKYAMlMwdAe3U5eQZUnSWwl1n/view?usp=drive_link"
             className="btn-scale inline-flex items-center justify-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-transparent dark:hover:text-white sm:px-8"
           >
             my resume <Download size={16} />
