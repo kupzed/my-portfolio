@@ -16,9 +16,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "William Mark — Frontend Developer",
+  title: "Riza Fahdan Syahda — JuniorWeb Developer",
   description:
-    "Portfolio of William Mark, a frontend web developer based in London with 10 years of experience.",
+    "Portfolio of Riza Fahdan Syahda, a Junior Web Developer from Bogor City, Indonesia.",
 };
 
 export default function RootLayout({
