@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ──────────────────────────────────────────
+   Theme tokens (Tailwind v4)
+   ────────────────────────────────────────── */
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #1a1a2e;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+
+  --color-accent: #e63946;
+}
+
+/* ──────────────────────────────────────────
+   Base styles
+   ────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.35s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-foreground);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ──────────────────────────────────────────
+   Mesh gradient background (light → dark)
+   ────────────────────────────────────────── */
+.mesh-bg {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      rgba(255, 245, 210, 0.5) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 20%,
+      rgba(255, 220, 230, 0.4) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 50% 80%,
+      rgba(230, 240, 255, 0.35) 0%,
+      transparent 50%
+    );
+}
+
+:where(.dark, .dark *) .mesh-bg,
+.dark .mesh-bg,
+.dark.mesh-bg {
+  background-color: #0b0716;
+  background-image:
+    radial-gradient(
+      ellipse 70% 50% at 30% 20%,
+      rgba(40, 20, 80, 0.9) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 70% 70%,
+      rgba(20, 12, 65, 0.7) 0%,
+      transparent 50%
+    );
+}
+
+/* ──────────────────────────────────────────
+   Nav link underline animation
+   ────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ──────────────────────────────────────────
+   Button hover scale
+   ────────────────────────────────────────── */
+.btn-scale {
+  transition:
+    transform 0.25s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.btn-scale:hover {
+  transform: scale(1.05);
+}
+
+/* ──────────────────────────────────────────
+   Scrollbar styling
+   ────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #444;
+}
