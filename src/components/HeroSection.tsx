@@ -3,6 +3,55 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const Typewriter = ({ texts }: { texts: string[] }) => {
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentText = texts[index % texts.length];
+    const currentChars = Array.from(currentText);
+    const textChars = Array.from(text);
+
+    let typeSpeed = 80;
+    if (isDeleting) typeSpeed = 40;
+
+    if (!isDeleting && text === currentText) {
+      typeSpeed = 2000;
+    } else if (isDeleting && text === "") {
+      typeSpeed = 500;
+    }
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && text === currentText) {
+        setIsDeleting(true);
+      } else if (isDeleting && text === "") {
+        setIsDeleting(false);
+        setIndex((prev) => prev + 1);
+      } else {
+        const nextChars = isDeleting
+          ? currentChars.slice(0, textChars.length - 1)
+          : currentChars.slice(0, textChars.length + 1);
+        setText(nextChars.join(""));
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, index, texts]);
+
+  return (
+    <span className="inline-flex items-center">
+      <span>{text}</span>
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+        className="ml-[2px] inline-block h-[1.2em] w-[2px] bg-current"
+      />
+    </span>
+  );
+};
 
 const containerVariants = {
   hidden: {},
@@ -54,9 +103,14 @@ export default function HeroSection() {
         {/* ── Greeting ── */}
         <motion.p
           variants={itemVariants}
-          className="mb-4 text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400 md:text-base"
+          className="mb-4 flex h-[20px] items-center text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400 md:h-[24px] md:text-base"
         >
-          Hi! I&apos;m Riza Fahdan Syahda 👋
+          <Typewriter
+            texts={[
+              "Hi! I'm Riza Fahdan Syahda 👋",
+              "Or you can call me Kupzed 👋",
+            ]}
+          />
         </motion.p>
 
         {/* ── Headline ── */}
