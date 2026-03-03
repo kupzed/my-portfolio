@@ -42,7 +42,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <p className="mt-8 text-xs text-gray-400/80 dark:text-white/30">
-          © 2026 Riza. All rights reserved.
+          © 2026 Riza Fahdan Syahda. All rights reserved.
         </p>
       </div>
     </footer>

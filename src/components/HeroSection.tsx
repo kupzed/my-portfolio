@@ -91,7 +91,7 @@ export default function HeroSection() {
         <motion.div variants={itemVariants} className="mb-6">
           <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-gray-700 md:h-32 md:w-32">
             <Image
-              src="/avatar-1.png"
+              src="/avatar/avatar-01.png"
               alt="Riza Fahdan Syahda — Frontend Developer"
               fill
               className="object-cover"

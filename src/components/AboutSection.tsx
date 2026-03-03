@@ -80,7 +80,7 @@ export default function AboutSection() {
           <motion.div variants={fadeUp} className="lg:col-span-2">
             <div className="relative aspect-3/4 w-full overflow-hidden rounded-4xl shadow-2xl">
               <Image
-                src="/avatar-2.png"
+                src="/avatar/avatar-02.png"
                 alt="Riza Fahdan Syahda — Portrait"
                 fill
                 className="object-cover"
