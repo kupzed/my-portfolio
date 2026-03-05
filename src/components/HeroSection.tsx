@@ -155,7 +155,9 @@ export default function HeroSection() {
         >
           {/* Contact Me */}
           <a
-            href="#contact"
+            href="https://wa.me/+628988449176"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-scale inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 dark:bg-transparent dark:border dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 sm:px-8"
           >
             contact me <ArrowRight size={16} />
@@ -164,6 +166,8 @@ export default function HeroSection() {
           {/* My Resume */}
           <a
             href="https://drive.google.com/file/d/1752AUQMoKYAMlMwdAe3U5eQZUnSWwl1n/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-scale inline-flex items-center justify-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-transparent dark:hover:text-white sm:px-8"
           >
             my resume <Download size={16} />

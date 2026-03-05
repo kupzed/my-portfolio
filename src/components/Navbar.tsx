@@ -97,7 +97,9 @@ export default function Navbar() {
               {themeIcon}
             </button>
             <a
-              href="#contact"
+              href="https://wa.me/+628988449176"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-5 py-2 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900"
             >
               Contact <ArrowUpRight size={14} />
@@ -159,7 +161,9 @@ export default function Navbar() {
                 transition={{ delay: navLinks.length * 0.06 }}
               >
                 <a
-                  href="#contact"
+                  href="https://wa.me/+628988449176"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
                   className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-6 py-2.5 text-base font-medium text-gray-900 dark:text-white"
                 >
