@@ -28,19 +28,21 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--color-foreground);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ──────────────────────────────────────────
    Mesh gradient background (light → dark)
    ────────────────────────────────────────── */
 .mesh-bg {
+  overflow-x: hidden;
   background-color: #ffffff;
   background-image:
     radial-gradient(

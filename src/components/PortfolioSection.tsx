@@ -382,10 +382,22 @@ export default function PortfolioSection() {
 
   // ── Scroll lock when modal is open ──
   useEffect(() => {
-    document.body.style.overflow = selected ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    if (selected) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
   }, [selected]);
 
   return (
@@ -472,7 +484,7 @@ export default function PortfolioSection() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-5 backdrop-blur-sm"
+            className="fixed inset-0 z-100 flex items-center justify-center overflow-y-auto bg-black/60 p-5 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           >
             <motion.div
@@ -481,14 +493,14 @@ export default function PortfolioSection() {
               animate="visible"
               exit="exit"
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl rounded-2xl bg-white p-8 shadow-2xl dark:bg-[#0e0b1e] dark:border dark:border-white/10"
+              className="relative my-auto w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-8 shadow-2xl dark:bg-[#0e0b1e] dark:border dark:border-white/10"
             >
               {/* Close */}
               <button
                 onClick={() => setSelected(null)}
                 aria-label="Close modal"
                 suppressHydrationWarning
-                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-white/10 dark:hover:text-white"
+                className="sticky top-0 right-0 z-10 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:bg-[#0e0b1e]/80 dark:hover:bg-white/10 dark:hover:text-white"
               >
                 <X size={18} />
               </button>
