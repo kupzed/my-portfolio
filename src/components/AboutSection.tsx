@@ -41,6 +41,50 @@ const fadeUp = {
   },
 };
 
+const slideLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+};
+
+const slideRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+};
+
+const cardStagger = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+  },
+};
+
+const cardSlideUp = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+};
+
 export default function AboutSection() {
   return (
     <section id="about" className="relative px-5 py-24 md:py-32">
@@ -50,7 +94,7 @@ export default function AboutSection() {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           className="mb-16 text-center"
         >
           <motion.p
@@ -73,43 +117,44 @@ export default function AboutSection() {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 items-start gap-12 lg:grid-cols-5 lg:gap-16"
+          viewport={{ once: false, amount: 0.2 }}
+          className="grid grid-cols-1 items-center gap-12 lg:grid-cols-5 lg:gap-16"
         >
-          {/* ── Left: Portrait (40%) ── */}
-          <motion.div variants={fadeUp} className="lg:col-span-2">
-            <div className="relative aspect-3/4 w-full overflow-hidden rounded-4xl shadow-2xl">
+          {/* ── Left: Portrait (40%) — slide from left ── */}
+          <motion.div variants={slideLeft} className="lg:col-span-2">
+            <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-2xl">
               <Image
                 src="/avatar/avatar-02.png"
                 alt="Riza Fahdan Syahda — Portrait"
                 fill
-                className="object-cover"
+                sizes="(max-width: 1024px) 448px, 40vw"
+                className="object-cover object-top"
               />
             </div>
           </motion.div>
 
-          {/* ── Right: Text & Cards (60%) ── */}
-          <div className="lg:col-span-3">
-            <motion.p
-              variants={fadeUp}
-              className="mb-10 text-base leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg md:leading-loose"
-            >
+          {/* ── Right: Text & Cards (60%) — slide from right ── */}
+          <motion.div variants={slideRight} className="lg:col-span-3">
+            <p className="mb-10 text-base leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg md:leading-loose">
               Learned a lot of new technologies on my own in recent years
               through the internet. Can work well with others in a team, put in
               hard work, be flexible, have strong honesty, and communicate
               clearly. High motivation and commitment to deliver the best
               possible performance for the company.
-            </motion.p>
+            </p>
 
             {/* ── Cards Grid ── */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardStagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
               {cards.map((card) => (
                 <motion.div
                   key={card.title}
-                  variants={fadeUp}
+                  variants={cardSlideUp}
                   className="group rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur-sm transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/5"
                 >
                   <card.icon
@@ -126,7 +171,7 @@ export default function AboutSection() {
                 </motion.div>
               ))}
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

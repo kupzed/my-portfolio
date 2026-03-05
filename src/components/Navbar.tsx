@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, ArrowUpRight } from "lucide-react";
+import { Moon, Sun, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -14,7 +14,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -23,13 +23,30 @@ export default function Navbar() {
     requestAnimationFrame(() => setMounted(true));
   }, []);
 
-  const isDark = mounted && resolvedTheme === "dark";
-  const toggleTheme = useCallback(
-    () => setTheme(isDark ? "light" : "dark"),
-    [isDark, setTheme],
-  );
+  // ── Scroll lock when mobile menu is open ──
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
-  const themeIcon = isDark ? <Sun size={18} /> : <Moon size={18} />;
+  // ── 3-state theme cycle: system → light → dark ──
+  const cycleTheme = useCallback(() => {
+    if (theme === "system") setTheme("light");
+    else if (theme === "light") setTheme("dark");
+    else setTheme("system");
+  }, [theme, setTheme]);
+
+  const themeIcon = !mounted ? (
+    <Monitor size={18} />
+  ) : theme === "light" ? (
+    <Sun size={18} />
+  ) : theme === "dark" ? (
+    <Moon size={18} />
+  ) : (
+    <Monitor size={18} />
+  );
 
   return (
     <>
@@ -60,8 +77,9 @@ export default function Navbar() {
           {/* ── Desktop Right ── */}
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={toggleTheme}
+              onClick={cycleTheme}
               aria-label="Toggle theme"
+              suppressHydrationWarning
               className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
             >
               {themeIcon}
@@ -77,8 +95,9 @@ export default function Navbar() {
           {/* ── Mobile Right ── */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={toggleTheme}
+              onClick={cycleTheme}
               aria-label="Toggle theme"
+              suppressHydrationWarning
               className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
             >
               {themeIcon}
@@ -86,6 +105,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
+              suppressHydrationWarning
               className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}

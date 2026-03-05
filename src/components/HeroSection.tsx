@@ -63,11 +63,23 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
     transition: {
       duration: 0.6,
       ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
@@ -84,16 +96,18 @@ export default function HeroSection() {
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
         className="flex max-w-3xl flex-col items-center text-center"
       >
         {/* ── Avatar ── */}
-        <motion.div variants={itemVariants} className="mb-6">
+        <motion.div variants={scaleIn} className="mb-6">
           <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-gray-700 md:h-32 md:w-32">
             <Image
               src="/avatar/avatar-01.png"
               alt="Riza Fahdan Syahda — Frontend Developer"
               fill
+              sizes="(max-width: 768px) 112px, 128px"
               className="object-cover"
               priority
             />
@@ -102,7 +116,7 @@ export default function HeroSection() {
 
         {/* ── Greeting ── */}
         <motion.p
-          variants={itemVariants}
+          variants={fadeUp}
           className="mb-4 flex h-[20px] items-center text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400 md:h-[24px] md:text-base"
         >
           <Typewriter
@@ -115,7 +129,7 @@ export default function HeroSection() {
 
         {/* ── Headline ── */}
         <motion.h1
-          variants={itemVariants}
+          variants={fadeUp}
           className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
@@ -126,7 +140,7 @@ export default function HeroSection() {
 
         {/* ── Sub-headline ── */}
         <motion.p
-          variants={itemVariants}
+          variants={fadeUp}
           className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
         >
           I am a Junior Web Developer from Bogor City, Indonesia. Has experience
@@ -136,7 +150,7 @@ export default function HeroSection() {
 
         {/* ── CTA Buttons ── */}
         <motion.div
-          variants={itemVariants}
+          variants={fadeUp}
           className="flex flex-col items-center gap-4 sm:flex-row"
         >
           {/* Contact Me */}
