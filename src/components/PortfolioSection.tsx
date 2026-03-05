@@ -395,7 +395,7 @@ export default function PortfolioSection() {
         document.body.style.left = "";
         document.body.style.right = "";
         document.body.style.overflow = "";
-        window.scrollTo(0, scrollY);
+        window.scrollTo({ top: scrollY, behavior: "instant" });
       };
     }
   }, [selected]);
