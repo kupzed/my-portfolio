@@ -79,37 +79,41 @@ export default function ContactSection() {
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           className="mt-8 space-y-5"
-          onSubmit={(e) => e.preventDefault()}
+          action="https://formspree.io/f/mojkavgj"
+          method="POST"
         >
-          {/* Name & Email row — slide from left */}
           <motion.div
             variants={slideLeft}
             className="grid grid-cols-1 gap-5 sm:grid-cols-2"
           >
             <input
               type="text"
+              name="name"
+              required
               placeholder="Enter your name"
               suppressHydrationWarning
               className={inputClasses}
             />
             <input
               type="email"
+              name="email"
+              required
               placeholder="Enter your email"
               suppressHydrationWarning
               className={inputClasses}
             />
           </motion.div>
 
-          {/* Message — slide from left */}
           <motion.div variants={slideLeft}>
             <textarea
+              name="message"
+              required
               rows={5}
               placeholder="Enter your message"
               className={`${inputClasses} min-h-[150px] resize-none`}
             />
           </motion.div>
 
-          {/* Submit */}
           <motion.div variants={fadeUp} className="flex justify-center pt-2">
             <button
               type="submit"
