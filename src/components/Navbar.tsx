@@ -102,7 +102,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-5 py-2 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900"
             >
-              Contact <ArrowUpRight size={14} />
+              Contact me <ArrowUpRight size={14} />
             </a>
           </div>
 
@@ -167,7 +167,7 @@ export default function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-6 py-2.5 text-base font-medium text-gray-900 dark:text-white"
                 >
-                  Contact <ArrowUpRight size={16} />
+                  Contact me <ArrowUpRight size={16} />
                 </a>
               </motion.li>
             </ul>

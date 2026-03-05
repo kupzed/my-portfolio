@@ -13,7 +13,7 @@ const cards = [
   {
     icon: GraduationCap,
     title: "Education",
-    text: "Information Systems, Gunadarma University.",
+    text: "Information Systems graduate from Gunadarma University",
   },
   {
     icon: Briefcase,
