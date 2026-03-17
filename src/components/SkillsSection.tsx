@@ -54,6 +54,10 @@ import {
   SiAdobeaudition,
   SiCanva,
   SiBehance,
+  SiAnthropic,
+  SiGooglegemini,
+  SiOpenai,
+  SiDocker,
 } from "react-icons/si";
 import { FileCode2 } from "lucide-react";
 import type { IconType } from "react-icons";
@@ -135,6 +139,7 @@ const skillsByTab: Record<Tab, Skill[]> = {
     { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
     { name: "Linux", icon: SiLinux, color: "#FCC624" },
     { name: "Ubuntu", icon: SiUbuntu, color: "#E95420" },
+    { name: "Docker", icon: SiDocker, color: "#000000", darkColor: "#ffffff" },
     {
       name: "Smart Contracts",
       icon: FileCode2 as Skill["icon"],
@@ -147,6 +152,19 @@ const skillsByTab: Record<Tab, Skill[]> = {
       color: "#000000",
       darkColor: "#ffffff",
     },
+    {
+      name: "Anthropic",
+      icon: SiAnthropic,
+      color: "#000000",
+      darkColor: "#ffffff",
+    },
+    {
+      name: "Google Gemini",
+      icon: SiGooglegemini,
+      color: "#000000",
+      darkColor: "#ffffff",
+    },
+    { name: "OpenAI", icon: SiOpenai, color: "#000000", darkColor: "#ffffff" },
   ],
   Design: [
     { name: "Adobe Illustrator", icon: SiAdobeillustrator, color: "#FF9A00" },
