@@ -16,7 +16,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Riza Fahdan Syahda — JuniorWeb Developer",
+  title: "Riza Fahdan Syahda | Portfolio",
   description:
     "Portfolio of Riza Fahdan Syahda, a Junior Web Developer from Bogor City, Indonesia.",
 };
