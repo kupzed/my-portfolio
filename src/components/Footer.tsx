@@ -21,7 +21,7 @@ export default function Footer() {
 
         {/* Tagline */}
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500 dark:text-white/60">
-          A Full-stack Developer building robust and scalable web applications.
+          A Full-stack Developer & Tech Enthusiast exploring AI & Web3.
         </p>
 
         {/* Social Icons */}

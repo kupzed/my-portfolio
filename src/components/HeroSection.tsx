@@ -133,7 +133,7 @@ export default function HeroSection() {
           className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
-          junior web developer{" "}
+          technology enthusiast{" "}
           <span className="text-gray-500 dark:text-gray-400">based in</span>{" "}
           Bogor City<span className="text-accent">.</span>
         </motion.h1>
@@ -143,9 +143,9 @@ export default function HeroSection() {
           variants={fadeUp}
           className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
         >
-          I am a Junior Web Developer from Bogor City, Indonesia. Has experience
-          as a Junior Full-stack Developer. Passionate about Web Development,
-          UI/UX, and Blockchain/Web3.
+          I am a Technology Enthusiast from Bogor City, Indonesia. Has
+          experience as a Junior Full-stack Developer. Passionate about Web
+          Development, Tech Enthusiast, UI/UX, AI and Blockchain/Web3.
         </motion.p>
 
         {/* ── CTA Buttons ── */}
@@ -155,7 +155,7 @@ export default function HeroSection() {
         >
           {/* Contact Me */}
           <a
-            href="https://wa.me/+628988449176"
+            href="https://t.me/kupzed"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-scale inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 dark:bg-transparent dark:border dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 sm:px-8"

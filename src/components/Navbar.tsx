@@ -97,7 +97,7 @@ export default function Navbar() {
               {themeIcon}
             </button>
             <a
-              href="https://wa.me/+628988449176"
+              href="https://t.me/kupzed"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-5 py-2 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900"
@@ -161,7 +161,7 @@ export default function Navbar() {
                 transition={{ delay: navLinks.length * 0.06 }}
               >
                 <a
-                  href="https://wa.me/+628988449176"
+                  href="https://t.me/kupzed"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
