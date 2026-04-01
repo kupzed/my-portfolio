@@ -4,14 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact", href: "#contact" },
-];
+import { navLinks } from "@/lib/data";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();

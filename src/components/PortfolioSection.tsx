@@ -40,288 +40,44 @@ import {
   SiLinux,
   SiUbuntu,
 } from "react-icons/si";
-import type { IconType } from "react-icons";
+import { projects } from "@/lib/data";
+import type { Project, TechIcon } from "@/lib/data";
 
-/* ── Types ── */
-interface TechIcon {
-  icon: IconType;
-  color: string;
-  darkColor?: string;
-  label: string;
-}
-
-interface ProjectLink {
-  label: string;
-  href: string;
-  variant: "primary" | "secondary";
-}
-
-interface Project {
-  title: string;
-  description: string;
-  tech: TechIcon[];
-  links: ProjectLink[];
-  thumbnail: string;
-}
-
-/* ── Project data ── */
-const projects: Project[] = [
-  {
-    title: "Project Management System",
-    description:
-      "A robust enterprise resource and project management system built to streamline business operations. Features include comprehensive modules for managing projects, partners (Mitras), financial records, certificates, and daily activities with file attachment support. The platform ensures secure data handling through JWT authentication and role-based access control (RBAC), complemented by an interactive dashboard for seamless monitoring.",
-    tech: [
-      { icon: SiSvelte, color: "#FF3E00", label: "SvelteKit" },
-      { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
-      { icon: SiVite, color: "#646CFF", label: "Vite" },
-      { icon: SiTypescript, color: "#3178C6", label: "TypeScript" },
-      { icon: SiPhp, color: "#777BB4", label: "PHP" },
-      { icon: SiLaravel, color: "#FF2D20", label: "Laravel" },
-      { icon: SiMysql, color: "#4479A1", label: "MySQL" },
-      {
-        icon: SiJsonwebtokens,
-        color: "#000000",
-        darkColor: "#ffffff",
-        label: "JWT Auth",
-      },
-      { icon: SiAxios, color: "#5A29E4", label: "Axios" },
-      { icon: SiBootstrap, color: "#7952B3", label: "Bootstrap" },
-      { icon: SiNpm, color: "#CB3837", label: "NPM" },
-      { icon: SiApache, color: "#D62D20", label: "Apache" },
-      { icon: SiMongodb, color: "#47A248", label: "MongoDB" },
-      { icon: SiGit, color: "#F05032", label: "Git" },
-      {
-        icon: SiGithub,
-        color: "#181717",
-        darkColor: "#e6edf3",
-        label: "GitHub",
-      },
-      { icon: SiGithubactions, color: "#2088FF", label: "GitHub Actions" },
-      { icon: SiLinux, color: "#FCC624", label: "Linux" },
-      { icon: SiUbuntu, color: "#E95420", label: "Ubuntu" },
-    ],
-    links: [
-      {
-        label: "Frontend",
-        href: "https://github.com/kupzed/indogreen-frontend",
-        variant: "primary",
-      },
-      {
-        label: "Backend",
-        href: "https://github.com/kupzed/indogreen-backend",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/project-management.png",
-  },
-  {
-    title: "My Portfolio",
-    description:
-      "A modern, responsive personal portfolio website crafted to showcase projects, skills, and professional background. Built with Next.js 16 and React 19 on a TypeScript foundation, the site features a sleek dark/light theme system powered by next-themes, fluid page animations using Framer Motion, and a fully responsive layout styled with Tailwind CSS v4. Key highlights include an animated typing hero section, an interactive project gallery with detail modals, a categorized skills showcase, and a functional contact form.",
-    tech: [
-      {
-        icon: SiNextdotjs,
-        color: "#000000",
-        darkColor: "#ffffff",
-        label: "Next.js",
-      },
-      { icon: SiReact, color: "#61DAFB", label: "React" },
-      { icon: SiTypescript, color: "#3178C6", label: "TypeScript" },
-      { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
-      { icon: SiFramer, color: "#0055FF", label: "Framer Motion" },
-      { icon: SiNpm, color: "#CB3837", label: "NPM" },
-      { icon: SiGit, color: "#F05032", label: "Git" },
-      {
-        icon: SiGithub,
-        color: "#181717",
-        darkColor: "#e6edf3",
-        label: "GitHub",
-      },
-      { icon: SiGithubactions, color: "#2088FF", label: "GitHub Actions" },
-      {
-        icon: SiVercel,
-        color: "#000000",
-        darkColor: "#ffffff",
-        label: "Vercel",
-      },
-    ],
-    links: [
-      {
-        label: "Frontend",
-        href: "https://github.com/kupzed/my-portfolio",
-        variant: "primary",
-      },
-      {
-        label: "Backend",
-        href: "https://github.com/kupzed/my-portfolio",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/my-portfolio.png",
-  },
-  {
-    title: "Project Management System V2",
-    description:
-      "The second iteration of the enterprise management platform, featuring a completely overhauled, highly responsive user interface. This version focuses on a superior user experience by introducing dark mode support, a more intuitive modern layout, and advanced data filtering systems optimized separately for mobile and desktop views. It seamlessly connects to the existing secure backend to manage projects, financial records, partners, and certificates with improved speed and accessibility.",
-    tech: [
-      { icon: SiSvelte, color: "#FF3E00", label: "SvelteKit" },
-      { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
-      { icon: SiVite, color: "#646CFF", label: "Vite" },
-      { icon: SiTypescript, color: "#3178C6", label: "TypeScript" },
-      { icon: SiPhp, color: "#777BB4", label: "PHP" },
-      { icon: SiLaravel, color: "#FF2D20", label: "Laravel" },
-      { icon: SiMysql, color: "#4479A1", label: "MySQL" },
-      {
-        icon: SiJsonwebtokens,
-        color: "#000000",
-        darkColor: "#ffffff",
-        label: "JWT Auth",
-      },
-      { icon: SiBootstrap, color: "#7952B3", label: "Bootstrap" },
-      { icon: SiNpm, color: "#CB3837", label: "NPM" },
-      { icon: SiApache, color: "#D62D20", label: "Apache" },
-      { icon: SiMongodb, color: "#47A248", label: "MongoDB" },
-      { icon: SiGit, color: "#F05032", label: "Git" },
-      {
-        icon: SiGithub,
-        color: "#181717",
-        darkColor: "#e6edf3",
-        label: "GitHub",
-      },
-      { icon: SiGithubactions, color: "#2088FF", label: "GitHub Actions" },
-      { icon: SiLinux, color: "#FCC624", label: "Linux" },
-      { icon: SiUbuntu, color: "#E95420", label: "Ubuntu" },
-    ],
-    links: [
-      {
-        label: "Frontend",
-        href: "https://github.com/kupzed/indogreen-frontend-v2",
-        variant: "primary",
-      },
-      {
-        label: "Backend",
-        href: "https://github.com/kupzed/indogreen-backend",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/project-management-v2.png",
-  },
-  {
-    title: "Inner Strength",
-    description:
-      "Sebuah platform kesehatan mental komprehensif yang dirancang untuk membantu pengguna mengelola kondisi psikologis seperti Anxiety, Bipolar, dan Depresi. Fitur utama mencakup sistem konsultasi online/offline dengan terapis profesional, komunitas berbagi antar pengguna, konten edukasi interaktif, serta dashboard manajemen data pasien dan jadwal konsultasi yang terintegrasi.",
-    tech: [
-      { icon: SiReact, color: "#61DAFB", label: "React.js" },
-      { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
-      { icon: SiJavascript, color: "#F7DF1E", label: "JavaScript" },
-      { icon: SiNodedotjs, color: "#339933", label: "Node.js" },
-      {
-        icon: SiExpress,
-        color: "#000000",
-        darkColor: "#ffffff",
-        label: "Express.js",
-      },
-      { icon: SiMysql, color: "#4479A1", label: "MySQL" },
-      { icon: SiSequelize, color: "#52B0E7", label: "Sequelize" },
-      { icon: SiAxios, color: "#5A29E4", label: "Axios" },
-      { icon: SiReactrouter, color: "#CA4245", label: "React Router" },
-      { icon: SiNpm, color: "#CB3837", label: "NPM" },
-      { icon: SiApache, color: "#D62D20", label: "Apache" },
-      { icon: SiMongodb, color: "#47A248", label: "MongoDB" },
-      { icon: SiGit, color: "#F05032", label: "Git" },
-      {
-        icon: SiGithub,
-        color: "#181717",
-        darkColor: "#e6edf3",
-        label: "GitHub",
-      },
-      { icon: SiGithubactions, color: "#2088FF", label: "GitHub Actions" },
-    ],
-    links: [
-      {
-        label: "Frontend",
-        href: "https://github.com/kupzed/InnerStrength-Full",
-        variant: "primary",
-      },
-      {
-        label: "Backend",
-        href: "https://github.com/kupzed/InnerStrength-Full",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/innerstrength.png",
-  },
-  {
-    title: "Graphic Design & Photography Portfolio",
-    description:
-      "A comprehensive showcase of creative works featuring graphic design, professional photography, and user interface design. This portfolio highlights expertise in social media design, branding, visual identification, and creative content creation.",
-    tech: [
-      {
-        icon: SiAdobeillustrator,
-        color: "#FF9A00",
-        label: "Adobe Illustrator",
-      },
-      { icon: SiAdobephotoshop, color: "#31A8FF", label: "Adobe Photoshop" },
-      { icon: SiAdobelightroom, color: "#31A8FF", label: "Adobe Lightroom" },
-      {
-        icon: SiAdobeacrobatreader,
-        color: "#FF0000",
-        label: "Adobe Acrobat XI Pro",
-      },
-      { icon: SiBehance, color: "#1769FF", label: "Behance" },
-    ],
-    links: [
-      {
-        label: "Behance",
-        href: "https://www.behance.net/gallery/186828953/Graphic-Design-and-Photography-Portfolio",
-        variant: "primary",
-      },
-      {
-        label: "Files",
-        href: "https://drive.google.com/file/d/1sYY7UXvSd7d_aamqVoAYvFtopnpI43ql/view?usp=sharing",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/graphic-design-portfolio.png",
-  },
-  {
-    title: "Go Travel",
-    description:
-      "A comprehensive UI/UX mockup for an open and private trip application focused on nature tourism. Designed to simplify travel planning, the prototype features intuitive destination discovery, quick reviews, an integrated booking and payment system, as well as real-time messaging. The interface was carefully crafted to ensure a seamless and engaging user experience for travelers.",
-    tech: [{ icon: SiFigma, color: "#F24E1E", label: "Figma" }],
-    links: [
-      {
-        label: "Prototype",
-        href: "https://www.figma.com/proto/Hn9TuKyPPGrfJ3WKZ8o5Zr/Go-Travel?node-id=34-11409&p=f&t=MUXUc93hgzurvwQP-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=34%3A8998",
-        variant: "primary",
-      },
-      {
-        label: "Design",
-        href: "https://www.figma.com/design/Hn9TuKyPPGrfJ3WKZ8o5Zr/Go-Travel?node-id=0-1&t=PAR1i2kolXYbRXig-1",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/gotravel.png",
-  },
-  {
-    title: "Pencatatan Keuangan",
-    description:
-      "A comprehensive UI/UX design for an Android-based personal financial tracking application. Developed using the Design Thinking methodology, this project focuses on creating an intuitive and user-friendly mobile experience to help users effortlessly record, monitor, and manage their daily income and expenses.",
-    tech: [{ icon: SiFigma, color: "#F24E1E", label: "Figma" }],
-    links: [
-      {
-        label: "Prototype",
-        href: "https://www.figma.com/proto/X7wjaJqbbG5x1nvxMOfcbA/Pencatatan-Keuangan?node-id=34-11409&p=f&t=MUXUc93hgzurvwQP-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=34%3A8998",
-        variant: "primary",
-      },
-      {
-        label: "Design",
-        href: "https://www.figma.com/design/X7wjaJqbbG5x1nvxMOfcbA/Pencatatan-Keuangan?t=PAR1i2kolXYbRXig-1",
-        variant: "secondary",
-      },
-    ],
-    thumbnail: "/projects/pencatatan-keuangan.png",
-  },
+// Retained so bundler doesn't tree-shake icons referenced through data objects
+void [
+  SiReact,
+  SiNextdotjs,
+  SiSvelte,
+  SiReactrouter,
+  SiTailwindcss,
+  SiAxios,
+  SiLaravel,
+  SiNodedotjs,
+  SiMysql,
+  SiSequelize,
+  SiFigma,
+  SiTypescript,
+  SiJavascript,
+  SiFramer,
+  SiAdobeillustrator,
+  SiAdobephotoshop,
+  SiAdobelightroom,
+  SiAdobeacrobatreader,
+  SiBehance,
+  SiExpress,
+  SiJsonwebtokens,
+  SiVercel,
+  SiPhp,
+  SiVite,
+  SiBootstrap,
+  SiNpm,
+  SiApache,
+  SiMongodb,
+  SiGit,
+  SiGithub,
+  SiGithubactions,
+  SiLinux,
+  SiUbuntu,
 ];
 
 /* ── Animation variants ── */

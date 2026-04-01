@@ -1,14 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
-
-const socials = [
-  { icon: Github, href: "https://github.com/kupzed", label: "GitHub" },
-  {
-    icon: Linkedin,
-    href: "https://linkedin.com/in/riza-fahdan-syahda",
-    label: "LinkedIn",
-  },
-  { icon: Mail, href: "mailto:rizafahdansyahda3@gmail.com", label: "Email" },
-];
+import { socialLinks } from "@/lib/data";
 
 export default function Footer() {
   return (
@@ -21,12 +11,12 @@ export default function Footer() {
 
         {/* Tagline */}
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500 dark:text-white/60">
-          A Full-stack Developer & Tech Enthusiast exploring AI & Web3.
+          A Full-stack Developer &amp; Tech Enthusiast exploring AI &amp; Web3.
         </p>
 
         {/* Social Icons */}
         <div className="mt-6 flex items-center justify-center gap-6">
-          {socials.map((s) => (
+          {socialLinks.map((s) => (
             <a
               key={s.label}
               href={s.href}

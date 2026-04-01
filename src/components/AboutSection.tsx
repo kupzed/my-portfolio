@@ -1,26 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, GraduationCap, Briefcase } from "lucide-react";
 import Image from "next/image";
-
-const cards = [
-  {
-    icon: Code,
-    title: "Top Skills",
-    text: "React JS, SvelteKit, Next.js, Laravel.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Education",
-    text: "Information Systems graduate from Gunadarma University",
-  },
-  {
-    icon: Briefcase,
-    title: "Projects",
-    text: "Built multiple fullstack apps.",
-  },
-];
+import { aboutCards } from "@/lib/data";
 
 const sectionVariants = {
   hidden: {},
@@ -151,7 +133,7 @@ export default function AboutSection() {
               viewport={{ once: false, amount: 0.2 }}
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {cards.map((card) => (
+              {aboutCards.map((card) => (
                 <motion.div
                   key={card.title}
                   variants={cardSlideUp}
