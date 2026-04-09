@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import Modal from "../ui/Modal";
 import Image from "next/image";
 import {
   SiReact,
@@ -98,31 +99,6 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
-const modalOverlay = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
-const modalContent = {
-  hidden: { opacity: 0, scale: 0.92, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.3,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: 10,
-    transition: { duration: 0.2 },
-  },
-};
-
 export default function PortfolioSection() {
   const [selected, setSelected] = useState<Project | null>(null);
   const { resolvedTheme } = useTheme();
@@ -135,26 +111,6 @@ export default function PortfolioSection() {
   const isDark = mounted && resolvedTheme === "dark";
   const getIconColor = (t: TechIcon) =>
     isDark && t.darkColor ? t.darkColor : t.color;
-
-  // ── Scroll lock when modal is open ──
-  useEffect(() => {
-    if (selected) {
-      const scrollY = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.overflow = "";
-        window.scrollTo({ top: scrollY, behavior: "instant" });
-      };
-    }
-  }, [selected]);
 
   return (
     <>
@@ -233,89 +189,63 @@ export default function PortfolioSection() {
       </section>
 
       {/* ── Modal ── */}
-      <AnimatePresence>
+      <Modal isOpen={!!selected} onClose={() => setSelected(null)}>
         {selected && (
-          <motion.div
-            variants={modalOverlay}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed inset-0 z-100 flex items-center justify-center overflow-y-auto bg-black/60 p-5 backdrop-blur-sm"
-            onClick={() => setSelected(null)}
-          >
-            <motion.div
-              variants={modalContent}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onClick={(e) => e.stopPropagation()}
-              className="relative my-auto w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-8 shadow-2xl dark:bg-[#0e0b1e] dark:border dark:border-white/10"
-            >
-              {/* Close */}
-              <button
-                onClick={() => setSelected(null)}
-                aria-label="Close modal"
-                suppressHydrationWarning
-                className="sticky top-0 right-0 z-10 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:bg-[#0e0b1e]/80 dark:hover:bg-white/10 dark:hover:text-white"
-              >
-                <X size={18} />
-              </button>
+          <>
+            {/* Title */}
+            <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+              Project Description
+            </h3>
 
-              {/* Title */}
-              <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-                Project Description
-              </h3>
+            {/* Description */}
+            <p className="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-300 md:text-base">
+              {selected.description}
+            </p>
 
-              {/* Description */}
-              <p className="mb-6 text-sm leading-relaxed text-gray-600 dark:text-gray-300 md:text-base">
-                {selected.description}
-              </p>
-
-              {/* Tools */}
-              <div className="mb-8">
-                <span className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Tools:
-                </span>
-                <div className="flex flex-wrap items-center gap-3">
-                  {selected.tech.map((t) => (
-                    <span
-                      key={t.label}
-                      className="inline-flex items-center gap-1.5"
-                    >
-                      <t.icon size={22} style={{ color: getIconColor(t) }} />
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {t.label}
-                      </span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex items-center gap-3">
-                <span className="mr-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Go to:
-                </span>
-                {selected.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`btn-scale inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors ${
-                      link.variant === "primary"
-                        ? "bg-purple-600 text-white hover:bg-purple-700"
-                        : "bg-rose-500 text-white hover:bg-rose-600"
-                    }`}
+            {/* Tools */}
+            <div className="mb-8">
+              <span className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Tools:
+              </span>
+              <div className="flex flex-wrap items-center gap-3">
+                {selected.tech.map((t) => (
+                  <span
+                    key={t.label}
+                    className="inline-flex items-center gap-1.5"
                   >
-                    {link.label} <ExternalLink size={14} />
-                  </a>
+                    <t.icon size={22} style={{ color: getIconColor(t) }} />
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {t.label}
+                    </span>
+                  </span>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex items-center gap-3">
+              <span className="mr-1 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Go to:
+              </span>
+              {selected.links.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn-scale inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors ${
+                    link.variant === "primary"
+                      ? "bg-purple-600 text-white hover:bg-purple-700"
+                      : "bg-rose-500 text-white hover:bg-rose-600"
+                  }`}
+                >
+                  {link.label} <ExternalLink size={14} />
+                </a>
+              ))}
+            </div>
+          </>
         )}
-      </AnimatePresence>
+      </Modal>
     </>
   );
 }
