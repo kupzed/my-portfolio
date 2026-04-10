@@ -129,7 +129,7 @@ export default function HeroSection() {
           className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
-          technology enthusiast{" "}
+          junior web developer{" "}
           <span className="text-gray-500 dark:text-gray-400">based in</span>{" "}
           Bogor City<span className="text-accent">.</span>
         </motion.h1>
@@ -139,9 +139,9 @@ export default function HeroSection() {
           variants={fadeUp}
           className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
         >
-          I am a Technology Enthusiast from Bogor City, Indonesia. Has
-          experience as a Junior Full-stack Developer. Passionate about Web
-          Development, Tech Enthusiast, UI/UX, AI and Blockchain/Web3.
+          I am a Junior Web Developer from Bogor City, Indonesia. Has experience
+          as a Full-stack Developer. Passionate about Web Development, Emerging
+          Tech, AI, Blockchain and Web3.
         </motion.p>
 
         {/* ── CTA Buttons ── */}
