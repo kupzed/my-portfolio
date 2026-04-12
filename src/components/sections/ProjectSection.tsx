@@ -82,6 +82,13 @@ void [
 ];
 
 /* ── Animation variants ── */
+const sectionVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+};
+
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -114,19 +121,30 @@ export default function PortfolioSection() {
 
   return (
     <>
-      <section id="portfolio" className="relative px-5 py-24 md:py-32">
+      <section id="project" className="relative px-5 py-24 md:py-32">
         <div className="mx-auto max-w-6xl">
           {/* ── Heading ── */}
-          <motion.h2
-            variants={fadeUp}
+          <motion.div
+            variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.5 }}
-            className="mb-14 text-center font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="mb-16 text-center"
           >
-            My Portfolio
-          </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="mb-2 text-sm font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500"
+            >
+              PORTFOLIO
+            </motion.p>
+            <motion.h2
+              variants={fadeUp}
+              className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Selected Works
+            </motion.h2>
+          </motion.div>
 
           {/* ── Project Cards Grid ── */}
           <motion.div
