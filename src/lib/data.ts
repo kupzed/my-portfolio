@@ -195,13 +195,105 @@ export const aboutCards: AboutCard[] = [
   },
   {
     icon: GraduationCap,
-    title: "Education",
-    text: "Information Systems graduate from Gunadarma University",
+    title: "Currently Into",
+    text: "AI Agents, Web3, Smart Contracts.",
   },
   {
     icon: Briefcase,
     title: "Projects",
     text: "Built multiple fullstack apps.",
+  },
+];
+
+// ─────────────────────────────────────────────
+// WORK EXPERIENCE SECTION
+// ─────────────────────────────────────────────
+
+export interface Experience {
+  role: string;
+  company: string;
+  date: string;
+  description: string[];
+}
+
+export const experiences: Experience[] = [
+  {
+    role: "Fullstack Developer",
+    company: "PT. Indogreen Technology And Management",
+    date: "May 2025 - Apr 2026",
+    description: [
+      "Built, developed, and maintained the integrated Project Management System version 1 and version 2 (frontend-v2) to support operational solutions in the Solar Power Plant (PLTS) sector.",
+      "Designed robust backend architectures using Laravel, including the creation of project data management systems and secure authentication.",
+      "Developed dynamic, responsive, and interactive User Interfaces (UI) on the frontend using Svelte and SvelteKit frameworks.",
+      "Designed, built, and integrated RESTful APIs to ensure seamless data communication between the frontend and backend.",
+    ],
+  },
+  {
+    role: "Web Development & UI UX Design",
+    company: "Infinite Learning (PT. Kinema Systrans Multimedia)",
+    date: "Feb 2024 - Jun 2024",
+    description: [
+      "Participated in the MSIB 6 Independent Study Program, focusing on modern web development practices and user interface design.",
+      'Collaborated as a Front-End Developer using React JS and Tailwind CSS to build a mental health web application prototype named "InnerStrength".',
+      'Acted as a UI Design & UX Research specialist in designing the prototype for the "GoTravel" travel website, ensuring user-centric design.',
+      "Developed various independent projects, including creating a responsive portfolio website based on HTML and CSS.",
+    ],
+  },
+  {
+    role: "Documentation & Creative Media Coordinator",
+    company: "Gamagudabo Championship 2024",
+    date: "Nov 2023 - Sep 2024",
+    description: [
+      "Managed the organization's social media content production cycle (YouTube, Instagram, TikTok, Twitter) from copywriting and design to editing.",
+      "Analyzed social media data insights to formulate more effective content strategies, budgets, and production schedules.",
+      "Managed the content production process, starting from writing and editing to design, collaborating with the creative team to produce high-quality content.",
+    ],
+  },
+  {
+    role: "Graphic Designer & Photographer",
+    company: "Gamagudabo Championship (2022 & 2023)",
+    date: "Mar 2022 & 2023 - Sep 2022 & 2023",
+    description: [
+      "Assisted Pre-Event and Event activities with the Creative Team job desk for an inter-school Futsal Event across Bogor City.",
+      "Responsible for visual documentation as a field photographer and videographer for the competition's event teaser.",
+      "Executed graphic design and photo editing for branding and publication purposes on the event's official Instagram.",
+    ],
+  },
+  {
+    role: "Deskprint",
+    company: "Gundaling Sholeh Iskandar (Internship)",
+    date: "Oct 2019 - Feb 2020",
+    description: [
+      "Communicated with customers to finalize designs to be printed according to the printing press requirements using Adobe Acrobat, Adobe Illustrator, Adobe Photoshop, and CorelDRAW.",
+      "Finished printouts such as Banners, Books, Stickers, Laminating, Calendars, Spiral Binding, Hard Covers, etc., commonly referred to by the company as Binding and Banner Finishing.",
+      "Demonstrated an understanding of printing materials.",
+    ],
+  },
+];
+
+// ─────────────────────────────────────────────
+// EDUCATION SECTION
+// ─────────────────────────────────────────────
+
+export interface Education {
+  degree: string;
+  school: string;
+  date: string;
+  details: string[];
+}
+
+export const educations: Education[] = [
+  {
+    degree: "Bachelor's Degree in Information Systems",
+    school: "Gunadarma University - Depok, Indonesia",
+    date: "Aug 2021 - Aug 2025",
+    details: ["Final GPA : 3.48 / 4.00"],
+  },
+  {
+    degree: "Multimedia",
+    school: "SMKN 1 KOTA BOGOR - Bogor, Indonesia",
+    date: "2018 - 2021",
+    details: ["Final Score : 84 / 100"],
   },
 ];
 
