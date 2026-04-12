@@ -178,7 +178,7 @@ export const heroData: HeroData = {
     "Hi! I'm Riza Fahdan Syahda 👋",
     "Or you can call me Kupzed 👋",
   ],
-  contactHref: "https://t.me/kupzed",
+  contactHref: "https://wa.me/+628988449176",
   resumeHref:
     "https://drive.google.com/file/d/1752AUQMoKYAMlMwdAe3U5eQZUnSWwl1n/view?usp=drive_link",
 };
@@ -294,6 +294,92 @@ export const educations: Education[] = [
     school: "SMKN 1 KOTA BOGOR - Bogor, Indonesia",
     date: "2018 - 2021",
     details: ["Final Score : 84 / 100"],
+  },
+];
+
+// ─────────────────────────────────────────────
+// CERTIFICATIONS & TRAINING SECTION
+// ─────────────────────────────────────────────
+
+export interface Certification {
+  title: string;
+  issuer: string;
+  type: string;
+  date: string;
+}
+
+export const certifications: Certification[] = [
+  {
+    title: "Occupation System Analyst",
+    type: "Certification",
+    issuer: "Badan Nasional Sertifikasi Profesi (BNSP)",
+    date: "03 September 2025",
+  },
+  {
+    title: "Aptitude Test",
+    type: "Certification",
+    issuer: "Gunadarma University",
+    date: "30 July 2025",
+  },
+  {
+    title: "Course C# for Intermediate",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "20 November 2024",
+  },
+  {
+    title: "Participation in the MSIB Kampus Merdeka Batch 6 Program",
+    type: "Awards",
+    issuer: "Pelaksana Pusat Kampus Merdeka",
+    date: "01 July 2024",
+  },
+  {
+    title: "Studi Independen Web Development & UI UX Design",
+    type: "Certification",
+    issuer: "Infinite Learning",
+    date: "30 June 2024",
+  },
+  {
+    title: "Course Golang for Intermediate",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "17 April 2024",
+  },
+  {
+    title: "Course C# for Beginner",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "15 November 2023",
+  },
+  {
+    title: "Course Golang for Beginner",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "23 June 2023",
+  },
+  {
+    title: "Workshop Building Website using HTML 5",
+    type: "Certification",
+    issuer: "Gunadarma University",
+    date: "16 June 2023",
+  },
+  {
+    title: "Course Fundamental DBMS",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "23 November 2022",
+  },
+  {
+    title: "Course Fundamental Web",
+    type: "Certification",
+    issuer: "Lepkom Gunadarma University",
+    date: "23 May 2022",
+  },
+  {
+    title: "Internship Certificate",
+    type: "Certification",
+    issuer: "Gundaling Sholeh Iskandar",
+    date: "28 February 2020",
   },
 ];
 

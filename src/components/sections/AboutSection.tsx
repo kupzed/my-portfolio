@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Plus, Minus } from "lucide-react";
-import { aboutCards, experiences, educations } from "@/lib/data";
+import { Plus, Minus, Trophy } from "lucide-react";
+import {
+  aboutCards,
+  experiences,
+  educations,
+  certifications,
+} from "@/lib/data";
 
 const sectionVariants = {
   hidden: {},
@@ -292,6 +297,53 @@ export default function AboutSection() {
                 </div>
               );
             })}
+          </motion.div>
+        </motion.div>
+
+        {/* ── Awards & Certifications Section ── */}
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.1 }}
+          className="mt-28 md:mt-36"
+        >
+          <div className="mb-12 text-center">
+            <motion.div
+              variants={fadeUp}
+              className="mb-3 flex items-center justify-center gap-2 text-sm font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500"
+            >
+              <Trophy size={16} />
+              <span>Recognition</span>
+            </motion.div>
+            <motion.h2
+              variants={fadeUp}
+              className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              Awards & Certifications
+            </motion.h2>
+          </div>
+
+          <motion.div variants={fadeUp} className="flex flex-col gap-4">
+            {certifications.map((cert, idx) => (
+              <div
+                key={idx}
+                className="group flex flex-col justify-between gap-4 rounded-2xl border border-black/10 bg-white/40 p-6 transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10 dark:hover:shadow-white/5 sm:flex-row sm:items-center sm:p-8"
+              >
+                <div>
+                  <h3 className="mb-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400 md:text-2xl">
+                    {cert.title}
+                  </h3>
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    {cert.issuer} • {cert.type}
+                  </p>
+                </div>
+                <div className="text-sm font-bold text-gray-400 transition-colors group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400 sm:text-base">
+                  {cert.date}
+                </div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
