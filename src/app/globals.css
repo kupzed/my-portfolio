@@ -21,9 +21,9 @@
 *,
 *::before,
 *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 0.35s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: color, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 html {
@@ -36,6 +36,20 @@ body {
   color: var(--color-foreground);
   min-height: 100vh;
   overflow-x: clip;
+}
+
+/* ──────────────────────────────────────────
+   Reduced motion — accessibility
+   ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ──────────────────────────────────────────
@@ -80,7 +94,7 @@ body {
 }
 
 /* ──────────────────────────────────────────
-   Nav link underline animation
+   Nav link underline animation (GPU-accelerated)
    ────────────────────────────────────────── */
 .nav-link {
   position: relative;
@@ -90,27 +104,42 @@ body {
   position: absolute;
   bottom: -2px;
   left: 0;
-  width: 0;
+  width: 100%;
   height: 2px;
   background-color: var(--color-accent);
-  transition: width 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-link:hover::after {
-  width: 100%;
+  transform: scaleX(1);
 }
 
 /* ──────────────────────────────────────────
-   Button hover scale
+   Button hover scale — with press feedback
    ────────────────────────────────────────── */
 .btn-scale {
   transition:
-    transform 0.25s ease,
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+    color 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+    border-color 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+    box-shadow 0.3s cubic-bezier(0.33, 1, 0.68, 1);
 }
 .btn-scale:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+}
+.btn-scale:active {
+  transform: scale(0.98);
+}
+
+/* ──────────────────────────────────────────
+   Focus-visible — accessible ring
+   ────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ──────────────────────────────────────────

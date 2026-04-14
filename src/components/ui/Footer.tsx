@@ -1,21 +1,40 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { socialLinks } from "@/lib/data";
+import { fadeIn, stagger, viewportOnce } from "@/lib/motion";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/10 dark:border-white/10">
+    <motion.footer
+      variants={stagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
+      className="border-t border-black/10 dark:border-white/10"
+    >
       <div className="mx-auto max-w-6xl px-5 py-12 text-center">
         {/* Logo */}
-        <p className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <motion.p
+          variants={fadeIn}
+          className="text-xl font-bold tracking-tight text-gray-900 dark:text-white"
+        >
           Kupzed<span className="text-accent">.</span>
-        </p>
+        </motion.p>
 
         {/* Tagline */}
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500 dark:text-white/60">
+        <motion.p
+          variants={fadeIn}
+          className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500 dark:text-white/60"
+        >
           A Full-stack Developer &amp; Tech Enthusiast exploring AI &amp; Web3.
-        </p>
+        </motion.p>
 
         {/* Social Icons */}
-        <div className="mt-6 flex items-center justify-center gap-6">
+        <motion.div
+          variants={fadeIn}
+          className="mt-6 flex items-center justify-center gap-6"
+        >
           {socialLinks.map((s) => (
             <a
               key={s.label}
@@ -23,18 +42,21 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="text-gray-400 transition-all duration-300 hover:scale-110 hover:text-gray-900 dark:text-white/40 dark:hover:text-white"
+              className="text-gray-400 transition-all duration-200 hover:scale-110 hover:text-gray-900 dark:text-white/40 dark:hover:text-white"
             >
               <s.icon size={20} strokeWidth={1.5} />
             </a>
           ))}
-        </div>
+        </motion.div>
 
         {/* Copyright */}
-        <p className="mt-8 text-xs text-gray-400/80 dark:text-white/30">
+        <motion.p
+          variants={fadeIn}
+          className="mt-8 text-xs text-gray-400/80 dark:text-white/30"
+        >
           © 2026 Riza Fahdan Syahda. All rights reserved.
-        </p>
+        </motion.p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

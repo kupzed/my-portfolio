@@ -5,15 +5,27 @@ import { useTheme } from "next-themes";
 import { Moon, Sun, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/lib/data";
+import { mobileMenuOverlay, mobileMenuItem } from "@/lib/motion";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Standard next-themes hydration pattern
   useEffect(() => {
     requestAnimationFrame(() => setMounted(true));
+  }, []);
+
+  // ── Scroll detection for navbar background ──
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    handleScroll(); // Check initial state
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // ── Scroll lock when mobile menu is open ──
@@ -55,7 +67,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-white/70 dark:bg-[#0b0716]/70 border-b border-gray-200/30 dark:border-white/5">
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b transition-[background-color,border-color,box-shadow] duration-300 ${
+          scrolled
+            ? "bg-white/80 dark:bg-[#0b0716]/80 border-gray-200/40 dark:border-white/10 shadow-sm"
+            : "bg-white/0 dark:bg-[#0b0716]/0 border-transparent"
+        }`}
+      >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
           {/* ── Logo ── */}
           <a
@@ -125,19 +143,20 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
+            variants={mobileMenuOverlay}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             className="fixed inset-0 top-16 z-40 bg-white/95 dark:bg-[#0b0716]/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col items-center justify-center gap-8 pt-20">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.href}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
+                  variants={mobileMenuItem}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: i * 0.05 }}
                 >
                   <a
                     href={link.href}
@@ -149,9 +168,10 @@ export default function Navbar() {
                 </motion.li>
               ))}
               <motion.li
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.06 }}
+                variants={mobileMenuItem}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: navLinks.length * 0.05 }}
               >
                 <a
                   href="https://wa.me/+628988449176"

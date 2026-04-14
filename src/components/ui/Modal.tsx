@@ -3,37 +3,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
+import { modalOverlay, modalContent } from "@/lib/motion";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
-
-const modalOverlay = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
-
-const modalContent = {
-  hidden: { opacity: 0, scale: 0.92, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.3,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: 10,
-    transition: { duration: 0.2 },
-  },
-};
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   // ── Scroll lock ──

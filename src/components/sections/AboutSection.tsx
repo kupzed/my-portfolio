@@ -10,69 +10,18 @@ import {
   educations,
   certifications,
 } from "@/lib/data";
-
-const sectionVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const slideLeft = {
-  hidden: { opacity: 0, x: -60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const slideRight = {
-  hidden: { opacity: 0, x: 60 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const cardStagger = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
-  },
-};
-
-const cardSlideUp = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
+import {
+  stagger,
+  staggerCards,
+  fadeUp,
+  slideLeft,
+  slideRight,
+  cardReveal,
+  accordionTransition,
+  viewportOnce,
+  viewportOnceMore,
+  viewportOnceLess,
+} from "@/lib/motion";
 
 export default function AboutSection() {
   const [openExp, setOpenExp] = useState<number | null>(null);
@@ -83,10 +32,10 @@ export default function AboutSection() {
       <div className="mx-auto max-w-6xl">
         {/* ── Header ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={viewportOnceMore}
           className="mb-16 text-center"
         >
           <motion.p
@@ -106,10 +55,10 @@ export default function AboutSection() {
 
         {/* ── 2-Column Layout ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={viewportOnce}
           className="grid grid-cols-1 items-center gap-12 lg:grid-cols-5 lg:gap-16"
         >
           {/* ── Left: Portrait (40%) — slide from left ── */}
@@ -137,16 +86,16 @@ export default function AboutSection() {
 
             {/* ── Cards Grid ── */}
             <motion.div
-              variants={cardStagger}
+              variants={staggerCards}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={viewportOnce}
               className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
             >
               {aboutCards.map((card) => (
                 <motion.div
                   key={card.title}
-                  variants={cardSlideUp}
+                  variants={cardReveal}
                   className="group rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur-sm transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/5"
                 >
                   <card.icon
@@ -168,10 +117,10 @@ export default function AboutSection() {
 
         {/* ── Experiences Section ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
+          viewport={viewportOnceLess}
           className="mt-28 md:mt-36"
         >
           <motion.h2
@@ -204,7 +153,7 @@ export default function AboutSection() {
                       </p>
                     </div>
                     <button
-                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-300 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
+                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
                       aria-label={isOpen ? "Collapse" : "Expand"}
                     >
                       {isOpen ? <Minus size={24} /> : <Plus size={24} />}
@@ -219,6 +168,7 @@ export default function AboutSection() {
                       opacity: isOpen ? 1 : 0,
                       marginTop: isOpen ? 24 : 0,
                     }}
+                    transition={accordionTransition}
                     className="overflow-hidden"
                   >
                     <ul className="list-disc space-y-4 pl-5 text-sm leading-relaxed text-gray-600 marker:text-gray-400 dark:text-gray-300 md:text-base">
@@ -235,10 +185,10 @@ export default function AboutSection() {
 
         {/* ── Education Section ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
+          viewport={viewportOnceLess}
           className="mt-16 md:mt-24"
         >
           <motion.h2
@@ -271,7 +221,7 @@ export default function AboutSection() {
                       </p>
                     </div>
                     <button
-                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-300 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
+                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
                       aria-label={isOpen ? "Collapse" : "Expand"}
                     >
                       {isOpen ? <Minus size={24} /> : <Plus size={24} />}
@@ -286,6 +236,7 @@ export default function AboutSection() {
                       opacity: isOpen ? 1 : 0,
                       marginTop: isOpen ? 24 : 0,
                     }}
+                    transition={accordionTransition}
                     className="overflow-hidden"
                   >
                     <div className="space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300 md:text-base">
@@ -302,10 +253,10 @@ export default function AboutSection() {
 
         {/* ── Awards & Certifications Section ── */}
         <motion.div
-          variants={sectionVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.1 }}
+          viewport={viewportOnceLess}
           className="mt-28 md:mt-36"
         >
           <div className="mb-12 text-center">
@@ -325,10 +276,17 @@ export default function AboutSection() {
             </motion.h2>
           </div>
 
-          <motion.div variants={fadeUp} className="flex flex-col gap-4">
+          <motion.div
+            variants={staggerCards}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnceLess}
+            className="flex flex-col gap-4"
+          >
             {certifications.map((cert, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                variants={cardReveal}
                 className="group flex flex-col justify-between gap-4 rounded-2xl border border-black/10 bg-white/40 p-6 transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10 dark:hover:shadow-white/5 sm:flex-row sm:items-center sm:p-8"
               >
                 <div>
@@ -342,7 +300,7 @@ export default function AboutSection() {
                 <div className="text-sm font-bold text-gray-400 transition-colors group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400 sm:text-base">
                   {cert.date}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </motion.div>

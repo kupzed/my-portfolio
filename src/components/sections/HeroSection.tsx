@@ -5,6 +5,7 @@ import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { heroData } from "@/lib/data";
+import { stagger, fadeUp, scaleIn } from "@/lib/motion";
 
 const Typewriter = ({ texts }: { texts: string[] }) => {
   const [text, setText] = useState("");
@@ -54,40 +55,6 @@ const Typewriter = ({ texts }: { texts: string[] }) => {
   );
 };
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
 export default function HeroSection() {
   return (
     <section
@@ -95,10 +62,9 @@ export default function HeroSection() {
       className="relative flex min-h-screen items-center justify-center px-5 pt-24 pb-16 md:pt-28 md:pb-24"
     >
       <motion.div
-        variants={containerVariants}
+        variants={stagger}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        animate="visible"
         className="flex max-w-3xl flex-col items-center text-center"
       >
         {/* ── Avatar ── */}

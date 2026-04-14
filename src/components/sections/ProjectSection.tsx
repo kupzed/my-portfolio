@@ -43,6 +43,14 @@ import {
 } from "react-icons/si";
 import { projects } from "@/lib/data";
 import type { Project, TechIcon } from "@/lib/data";
+import {
+  stagger,
+  staggerCards,
+  fadeUp,
+  cardReveal,
+  viewportOnce,
+  viewportOnceMore,
+} from "@/lib/motion";
 
 // Retained so bundler doesn't tree-shake icons referenced through data objects
 void [
@@ -81,31 +89,6 @@ void [
   SiUbuntu,
 ];
 
-/* ── Animation variants ── */
-const sectionVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
 export default function PortfolioSection() {
   const [selected, setSelected] = useState<Project | null>(null);
   const { resolvedTheme } = useTheme();
@@ -125,10 +108,10 @@ export default function PortfolioSection() {
         <div className="mx-auto max-w-6xl">
           {/* ── Heading ── */}
           <motion.div
-            variants={sectionVariants}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={viewportOnceMore}
             className="mb-16 text-center"
           >
             <motion.p
@@ -148,16 +131,16 @@ export default function PortfolioSection() {
 
           {/* ── Project Cards Grid ── */}
           <motion.div
-            variants={stagger}
+            variants={staggerCards}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={viewportOnce}
             className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
           >
             {projects.map((project) => (
               <motion.div
                 key={project.title}
-                variants={fadeUp}
+                variants={cardReveal}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:border-white/10 dark:bg-[#111027]"
               >
                 {/* Thumbnail */}

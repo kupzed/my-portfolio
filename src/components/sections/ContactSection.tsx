@@ -2,38 +2,16 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
-};
-
-const slideLeft = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
-    },
-  },
-};
+import {
+  stagger,
+  fadeUp,
+  slideLeft,
+  viewportOnce,
+  viewportOnceMore,
+} from "@/lib/motion";
 
 const inputClasses =
-  "w-full rounded-xl border border-black/20 bg-transparent px-4 py-3 text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-black/50 focus:ring-1 focus:ring-black/20 dark:border-white/20 dark:text-white dark:placeholder-gray-500 dark:focus:border-white/50 dark:focus:ring-white/20";
+  "w-full rounded-xl border border-black/20 bg-transparent px-4 py-3 text-gray-900 placeholder-gray-400 outline-none transition-all duration-200 focus:border-black/50 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:text-white dark:placeholder-gray-500 dark:focus:border-white/50 dark:focus:ring-white/10";
 
 export default function ContactSection() {
   return (
@@ -44,7 +22,7 @@ export default function ContactSection() {
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={viewportOnceMore}
           className="mb-10 text-center"
         >
           <motion.p
@@ -77,7 +55,7 @@ export default function ContactSection() {
           variants={stagger}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={viewportOnce}
           className="mt-8 space-y-5"
           action="https://formspree.io/f/mojkavgj"
           method="POST"
@@ -118,12 +96,12 @@ export default function ContactSection() {
             <button
               type="submit"
               suppressHydrationWarning
-              className="group inline-flex items-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3 text-sm font-semibold text-gray-900 transition-all duration-300 hover:scale-105 hover:bg-gray-900 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
+              className="group inline-flex items-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3 text-sm font-semibold text-gray-900 transition-all duration-200 hover:scale-[1.04] hover:bg-gray-900 hover:text-white active:scale-[0.98] dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
             >
               Submit now
               <ArrowRight
                 size={16}
-                className="transition-transform duration-300 group-hover:translate-x-0.5"
+                className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
             </button>
           </motion.div>
