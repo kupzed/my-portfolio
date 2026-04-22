@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Plus, Minus, Trophy } from "lucide-react";
 import {
@@ -26,11 +26,12 @@ import {
 export default function AboutSection() {
   const [openExp, setOpenExp] = useState<number | null>(null);
   const [openEdu, setOpenEdu] = useState<number | null>(null);
+  const shouldReduce = useReducedMotion();
 
   return (
     <section id="about" className="relative px-5 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        {/* ── Header ── */}
+        {/* Header */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -53,7 +54,7 @@ export default function AboutSection() {
           </motion.h2>
         </motion.div>
 
-        {/* ── 2-Column Layout ── */}
+        {/* 2-Column Layout */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -61,7 +62,7 @@ export default function AboutSection() {
           viewport={viewportOnce}
           className="grid grid-cols-1 items-center gap-12 lg:grid-cols-5 lg:gap-16"
         >
-          {/* ── Left: Portrait (40%) — slide from left ── */}
+          {/* Left: Portrait */}
           <motion.div variants={slideLeft} className="lg:col-span-2">
             <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-2xl">
               <Image
@@ -74,7 +75,7 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
-          {/* ── Right: Text & Cards (60%) — slide from right ── */}
+          {/* Right: Text & Cards */}
           <motion.div variants={slideRight} className="lg:col-span-3">
             <p className="mb-10 text-base leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg md:leading-loose">
               Learned a lot of new technologies on my own in recent years
@@ -84,7 +85,7 @@ export default function AboutSection() {
               possible performance for the company.
             </p>
 
-            {/* ── Cards Grid ── */}
+            {/* Cards Grid — hover lift (desktop) + tap press (mobile) */}
             <motion.div
               variants={staggerCards}
               initial="hidden"
@@ -96,7 +97,10 @@ export default function AboutSection() {
                 <motion.div
                   key={card.title}
                   variants={cardReveal}
-                  className="group rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur-sm transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/5"
+                  whileHover={shouldReduce ? undefined : { scale: 1.03, y: -3 }}
+                  whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="group cursor-default rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur-sm hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/5"
                 >
                   <card.icon
                     size={28}
@@ -115,7 +119,7 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
 
-        {/* ── Experiences Section ── */}
+        {/* Experiences Section */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -130,7 +134,6 @@ export default function AboutSection() {
           >
             Experiences
           </motion.h2>
-
           <motion.div
             variants={fadeUp}
             className="flex flex-col border-t border-black/10 dark:border-white/10"
@@ -141,11 +144,11 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenExp(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-black/10 py-8 transition-colors hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
+                  className="group cursor-pointer border-b border-black/10 py-8 hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 transition-colors group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
+                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
                         {exp.role}
                       </h3>
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
@@ -159,8 +162,6 @@ export default function AboutSection() {
                       {isOpen ? <Minus size={24} /> : <Plus size={24} />}
                     </button>
                   </div>
-
-                  {/* Accordion Content */}
                   <motion.div
                     initial={false}
                     animate={{
@@ -183,7 +184,7 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
 
-        {/* ── Education Section ── */}
+        {/* Education Section */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -198,7 +199,6 @@ export default function AboutSection() {
           >
             Education
           </motion.h2>
-
           <motion.div
             variants={fadeUp}
             className="flex flex-col border-t border-black/10 dark:border-white/10"
@@ -209,11 +209,11 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenEdu(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-black/10 py-8 transition-colors hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
+                  className="group cursor-pointer border-b border-black/10 py-8 hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 transition-colors group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
+                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
                         {edu.degree}
                       </h3>
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
@@ -227,8 +227,6 @@ export default function AboutSection() {
                       {isOpen ? <Minus size={24} /> : <Plus size={24} />}
                     </button>
                   </div>
-
-                  {/* Accordion Content */}
                   <motion.div
                     initial={false}
                     animate={{
@@ -251,7 +249,7 @@ export default function AboutSection() {
           </motion.div>
         </motion.div>
 
-        {/* ── Awards & Certifications Section ── */}
+        {/* Awards & Certifications */}
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -272,37 +270,41 @@ export default function AboutSection() {
               className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
               style={{ fontFamily: "var(--font-serif)" }}
             >
-              Awards & Certifications
+              Awards &amp; Certifications
             </motion.h2>
           </div>
 
-          <motion.div
-            variants={staggerCards}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnceLess}
-            className="flex flex-col gap-4"
-          >
+          {/* Certification cards — x:-30 horizontal stagger from left + tap feedback */}
+          <div className="flex flex-col gap-4">
             {certifications.map((cert, idx) => (
               <motion.div
                 key={idx}
-                variants={cardReveal}
-                className="group flex flex-col justify-between gap-4 rounded-2xl border border-black/10 bg-white/40 p-6 transition-all duration-300 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10 dark:hover:shadow-white/5 sm:flex-row sm:items-center sm:p-8"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={viewportOnceLess}
+                transition={{
+                  duration: 0.65,
+                  delay: idx * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={shouldReduce ? undefined : { scale: 1.02, y: -2 }}
+                whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+                className="group cursor-default flex flex-col justify-between gap-4 rounded-2xl border border-black/10 bg-white/40 p-6 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10 dark:hover:shadow-white/5 sm:flex-row sm:items-center sm:p-8"
               >
                 <div>
-                  <h3 className="mb-2 text-xl font-bold text-gray-900 transition-colors group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400 md:text-2xl">
+                  <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400 md:text-2xl">
                     {cert.title}
                   </h3>
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                     {cert.issuer} • {cert.type}
                   </p>
                 </div>
-                <div className="text-sm font-bold text-gray-400 transition-colors group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400 sm:text-base">
+                <div className="text-sm font-bold text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400 sm:text-base">
                   {cert.date}
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

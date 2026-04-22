@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { socialLinks } from "@/lib/data";
 import { fadeIn, stagger, viewportOnce } from "@/lib/motion";
 
 export default function Footer() {
+  const shouldReduce = useReducedMotion();
   return (
     <motion.footer
       variants={stagger}
@@ -36,16 +37,18 @@ export default function Footer() {
           className="mt-6 flex items-center justify-center gap-6"
         >
           {socialLinks.map((s) => (
-            <a
+            <motion.a
               key={s.label}
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={s.label}
-              className="text-gray-400 transition-all duration-200 hover:scale-110 hover:text-gray-900 dark:text-white/40 dark:hover:text-white"
+              whileHover={shouldReduce ? undefined : { y: -3, scale: 1.15 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="text-gray-400 dark:text-white/40 hover:text-gray-900 dark:hover:text-white"
             >
               <s.icon size={20} strokeWidth={1.5} />
-            </a>
+            </motion.a>
           ))}
         </motion.div>
 

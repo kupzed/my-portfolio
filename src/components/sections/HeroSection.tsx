@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { heroData } from "@/lib/data";
-import { stagger, fadeUp, scaleIn } from "@/lib/motion";
+import { stagger, blurIn, slideUpFade, scaleIn, floatLoop } from "@/lib/motion";
 
 const Typewriter = ({ texts }: { texts: string[] }) => {
   const [text, setText] = useState("");
@@ -46,16 +46,15 @@ const Typewriter = ({ texts }: { texts: string[] }) => {
   return (
     <span className="inline-flex items-center">
       <span>{text}</span>
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-        className="ml-[2px] inline-block h-[1.2em] w-[2px] bg-current"
-      />
+      {/* Terminal-style cursor: scaleY blink instead of opacity flicker */}
+      <span className="cursor-blink ml-[2px] inline-block h-[1.2em] w-[2px] bg-current" />
     </span>
   );
 };
 
 export default function HeroSection() {
+  const shouldReduce = useReducedMotion();
+
   return (
     <section
       id="home"
@@ -67,9 +66,17 @@ export default function HeroSection() {
         animate="visible"
         className="flex max-w-3xl flex-col items-center text-center"
       >
-        {/* ── Avatar ── */}
-        <motion.div variants={scaleIn} className="mb-6">
-          <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-gray-700 md:h-32 md:w-32">
+        {/* ── Avatar — scaleIn mount + floatLoop ── */}
+        <motion.div
+          variants={scaleIn}
+          className="mb-6"
+          animate={shouldReduce ? undefined : "animate"}
+        >
+          <motion.div
+            variants={floatLoop}
+            animate={shouldReduce ? undefined : "animate"}
+            className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-gray-700 md:h-32 md:w-32"
+          >
             <Image
               src="/avatar/avatar-01.png"
               alt="Riza Fahdan Syahda — Frontend Developer"
@@ -78,20 +85,20 @@ export default function HeroSection() {
               className="object-cover"
               priority
             />
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* ── Greeting ── */}
+        {/* ── Greeting / Typewriter ── */}
         <motion.p
-          variants={fadeUp}
+          variants={blurIn}
           className="mb-4 flex h-[20px] items-center text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400 md:h-[24px] md:text-base"
         >
           <Typewriter texts={heroData.typewriterTexts} />
         </motion.p>
 
-        {/* ── Headline ── */}
+        {/* ── Headline — blurIn for cinematic focus ── */}
         <motion.h1
-          variants={fadeUp}
+          variants={blurIn}
           className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
@@ -100,9 +107,9 @@ export default function HeroSection() {
           Bogor City<span className="text-accent">.</span>
         </motion.h1>
 
-        {/* ── Sub-headline ── */}
+        {/* ── Sub-headline — slideUpFade with slight delay ── */}
         <motion.p
-          variants={fadeUp}
+          variants={slideUpFade}
           className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
         >
           I am a Junior Web Developer from Bogor City, Indonesia. Has experience
@@ -110,30 +117,36 @@ export default function HeroSection() {
           Tech, AI, Blockchain and Web3.
         </motion.p>
 
-        {/* ── CTA Buttons ── */}
+        {/* ── CTA Buttons — slideUpFade spring ── */}
         <motion.div
-          variants={fadeUp}
+          variants={slideUpFade}
           className="flex flex-col items-center gap-4 sm:flex-row"
         >
           {/* Contact Me */}
-          <a
+          <motion.a
             href={heroData.contactHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-scale inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 dark:bg-transparent dark:border dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 sm:px-8"
+            whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+            whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 dark:bg-transparent dark:border dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 sm:px-8"
           >
             contact me <ArrowRight size={16} />
-          </a>
+          </motion.a>
 
           {/* My Resume */}
-          <a
+          <motion.a
             href={heroData.resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-scale inline-flex items-center justify-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-transparent dark:hover:text-white sm:px-8"
+            whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+            whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-transparent dark:hover:text-white sm:px-8"
           >
             my resume <Download size={16} />
-          </a>
+          </motion.a>
         </motion.div>
       </motion.div>
     </section>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   SiHtml5,
   SiCss3,
@@ -63,7 +63,7 @@ import { FileCode2 } from "lucide-react";
 import { skillsByTab, SKILL_TABS } from "@/lib/data";
 import type { Skill, SkillTab } from "@/lib/data";
 import {
-  fadeUp,
+  blurIn,
   scaleIn,
   staggerWithExit,
   cardReveal,
@@ -133,6 +133,7 @@ export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState<SkillTab>("Frontend");
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const shouldReduce = useReducedMotion();
 
   useEffect(() => {
     requestAnimationFrame(() => setMounted(true));
@@ -145,9 +146,9 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="relative px-5 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        {/* ── Heading ── */}
+        {/* ── Heading — blurIn for cinematic focus ── */}
         <motion.h2
-          variants={fadeUp}
+          variants={blurIn}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnceMore}
@@ -167,10 +168,13 @@ export default function SkillsSection() {
         >
           <div className="inline-flex items-center gap-1 rounded-full border border-black/10 bg-white/50 p-1.5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
             {SKILL_TABS.map((tab) => (
-              <button
+              <motion.button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 suppressHydrationWarning
+                whileHover={shouldReduce ? undefined : { scale: 1.03 }}
+                whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="relative rounded-full px-5 py-2.5 text-xs md:text-base font-medium transition-colors duration-200"
               >
                 {/* Sliding pill indicator */}
@@ -194,7 +198,7 @@ export default function SkillsSection() {
                 >
                   {tab}
                 </span>
-              </button>
+              </motion.button>
             ))}
           </div>
         </motion.div>
@@ -214,13 +218,26 @@ export default function SkillsSection() {
                 <motion.div
                   key={skill.name}
                   variants={cardReveal}
-                  className="group flex flex-col items-center justify-center gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 dark:border-white/10 dark:bg-[#111027] dark:hover:border-white/20 dark:hover:shadow-purple-500/5 sm:p-8"
+                  whileHover={
+                    shouldReduce ? undefined : { y: -4, scale: 1.03 }
+                  }
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="skill-card-glow group flex flex-col items-center justify-center gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#111027] dark:hover:border-white/20 sm:p-8"
                 >
-                  <skill.icon
-                    size={48}
-                    style={{ color: getIconColor(skill) }}
-                    className="transition-transform duration-200 group-hover:scale-110 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]"
-                  />
+                  <motion.div
+                    whileHover={
+                      shouldReduce
+                        ? undefined
+                        : { rotate: [0, -10, 10, 0] }
+                    }
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                  >
+                    <skill.icon
+                      size={48}
+                      style={{ color: getIconColor(skill) }}
+                      className="dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.15)]"
+                    />
+                  </motion.div>
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300 text-center">
                     {skill.name}
                   </span>

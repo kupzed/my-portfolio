@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import {
   stagger,
@@ -11,9 +11,10 @@ import {
 } from "@/lib/motion";
 
 const inputClasses =
-  "w-full rounded-xl border border-black/20 bg-transparent px-4 py-3 text-gray-900 placeholder-gray-400 outline-none transition-all duration-200 focus:border-black/50 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:text-white dark:placeholder-gray-500 dark:focus:border-white/50 dark:focus:ring-white/10";
+  "input-glow w-full rounded-xl border border-black/20 bg-transparent px-4 py-3 text-gray-900 placeholder-gray-400 outline-none focus:border-black/50 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:text-white dark:placeholder-gray-500 dark:focus:border-white/50 dark:focus:ring-white/10";
 
 export default function ContactSection() {
+  const shouldReduce = useReducedMotion();
   return (
     <section id="contact" className="relative px-5 py-24 md:py-32">
       <div className="mx-auto max-w-2xl">
@@ -93,17 +94,20 @@ export default function ContactSection() {
           </motion.div>
 
           <motion.div variants={fadeUp} className="flex justify-center pt-2">
-            <button
+            <motion.button
               type="submit"
               suppressHydrationWarning
-              className="group inline-flex items-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3 text-sm font-semibold text-gray-900 transition-all duration-200 hover:scale-[1.04] hover:bg-gray-900 hover:text-white active:scale-[0.98] dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
+              whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+              whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 350, damping: 20 }}
+              className="group inline-flex items-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
             >
               Submit now
               <ArrowRight
                 size={16}
                 className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
-            </button>
+            </motion.button>
           </motion.div>
         </motion.form>
       </div>

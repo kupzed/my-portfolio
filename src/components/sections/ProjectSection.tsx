@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import Modal from "../ui/Modal";
 import Image from "next/image";
@@ -93,6 +93,7 @@ export default function PortfolioSection() {
   const [selected, setSelected] = useState<Project | null>(null);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const shouldReduce = useReducedMotion();
 
   useEffect(() => {
     requestAnimationFrame(() => setMounted(true));
@@ -141,7 +142,10 @@ export default function PortfolioSection() {
               <motion.div
                 key={project.title}
                 variants={cardReveal}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 dark:border-white/10 dark:bg-[#111027]"
+                whileHover={shouldReduce ? undefined : { y: -6 }}
+                whileTap={shouldReduce ? undefined : { scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm hover:shadow-xl dark:border-white/10 dark:bg-[#111027] dark:hover:shadow-purple-500/10"
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video w-full overflow-hidden">
@@ -151,7 +155,7 @@ export default function PortfolioSection() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="eager"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-[transform,filter] duration-500 group-hover:scale-105 group-hover:brightness-110"
                   />
                 </div>
 
@@ -174,14 +178,17 @@ export default function PortfolioSection() {
                     ))}
                   </div>
 
-                  {/* Detail button */}
-                  <button
+                  {/* Detail button — motion.button with spring feedback */}
+                  <motion.button
                     onClick={() => setSelected(project)}
                     suppressHydrationWarning
-                    className="btn-scale mt-auto w-full rounded-lg bg-purple-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-500"
+                    whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+                    whileTap={shouldReduce ? undefined : { scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="mt-auto w-full rounded-lg bg-purple-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-500"
                   >
                     Detail
-                  </button>
+                  </motion.button>
                 </div>
               </motion.div>
             ))}

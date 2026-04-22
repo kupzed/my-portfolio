@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { navLinks } from "@/lib/data";
 import { mobileMenuOverlay, mobileMenuItem } from "@/lib/motion";
 
 export default function Navbar() {
+  const shouldReduce = useReducedMotion();
   const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -23,12 +24,13 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    handleScroll(); // Check initial state
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // ── Scroll lock when mobile menu is open ──
+  // We store the scrollY on a data attribute so the click handler can read it.
   useEffect(() => {
     if (mobileOpen) {
       const scrollY = window.scrollY;
@@ -37,13 +39,16 @@ export default function Navbar() {
       document.body.style.left = "0";
       document.body.style.right = "0";
       document.body.style.overflow = "hidden";
+      document.body.dataset.lockedScrollY = String(scrollY);
       return () => {
+        const savedY = Number(document.body.dataset.lockedScrollY ?? 0);
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
         document.body.style.right = "";
         document.body.style.overflow = "";
-        window.scrollTo({ top: scrollY, behavior: "instant" });
+        delete document.body.dataset.lockedScrollY;
+        window.scrollTo({ top: savedY, behavior: "instant" });
       };
     }
   }, [mobileOpen]);
@@ -54,6 +59,25 @@ export default function Navbar() {
     else if (theme === "light") setTheme("dark");
     else setTheme("system");
   }, [theme, setTheme]);
+
+  // ── Mobile nav: close menu then smooth-scroll to target ──
+  // We need two rAF frames so the body scroll-lock is fully released before scroll.
+  const handleMobileNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      setMobileOpen(false);
+      const targetId = href.replace("#", "");
+      // Double rAF: first frame restores body styles (cleanup runs),
+      // second frame the layout is stable and scrollIntoView works.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    },
+    []
+  );
 
   const themeIcon = !mounted ? (
     <Monitor size={18} />
@@ -75,13 +99,15 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
-          {/* ── Logo ── */}
-          <a
+          {/* ── Logo — playful letterSpacing spring on hover ── */}
+          <motion.a
             href="#home"
+            whileHover={shouldReduce ? undefined : { letterSpacing: "0.05em" }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
             className="text-xl font-bold tracking-tight text-gray-900 dark:text-white select-none"
           >
             Kupzed<span className="text-accent">.</span>
-          </a>
+          </motion.a>
 
           {/* ── Desktop Nav Links ── */}
           <ul className="hidden md:flex items-center gap-8">
@@ -128,12 +154,35 @@ export default function Navbar() {
               {themeIcon}
             </button>
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               suppressHydrationWarning
               className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {/* Animated icon swap */}
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <X size={20} />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="open"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <Menu size={20} />
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
           </div>
         </div>
@@ -147,40 +196,52 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 top-16 z-40 bg-white/95 dark:bg-[#0b0716]/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 top-16 z-40 bg-white/97 dark:bg-[#0b0716]/97 backdrop-blur-xl md:hidden overflow-y-auto"
           >
-            <ul className="flex flex-col items-center justify-center gap-8 pt-20">
+            <ul className="flex flex-col items-center justify-center gap-10 py-16 min-h-[calc(100vh-4rem)]">
               {navLinks.map((link, i) => (
                 <motion.li
                   key={link.href}
                   variants={mobileMenuItem}
                   initial="hidden"
                   animate="visible"
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.06 }}
                 >
                   <a
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="text-xl font-medium text-gray-800 dark:text-gray-200 hover:text-accent dark:hover:text-accent"
+                    onClick={(e) => handleMobileNavClick(e, link.href)}
+                    className="text-2xl font-semibold text-gray-800 dark:text-gray-100 hover:text-accent dark:hover:text-accent transition-colors duration-200"
                   >
                     {link.label}
                   </a>
                 </motion.li>
               ))}
+
+              {/* Thin divider */}
               <motion.li
                 variants={mobileMenuItem}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: navLinks.length * 0.05 }}
+                transition={{ delay: navLinks.length * 0.06 }}
+                aria-hidden="true"
+                className="w-12 border-t border-black/10 dark:border-white/10"
+              />
+
+              {/* Contact CTA — solid pill, matches desktop intent */}
+              <motion.li
+                variants={mobileMenuItem}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: (navLinks.length + 1) * 0.06 }}
               >
                 <a
                   href="https://wa.me/+628988449176"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-6 py-2.5 text-base font-medium text-gray-900 dark:text-white"
+                  className="inline-flex items-center gap-2 rounded-full bg-gray-900 dark:bg-white px-8 py-3.5 text-base font-semibold text-white dark:text-gray-900 shadow-lg"
                 >
-                  Contact me <ArrowUpRight size={16} />
+                  Contact me <ArrowUpRight size={18} />
                 </a>
               </motion.li>
             </ul>
