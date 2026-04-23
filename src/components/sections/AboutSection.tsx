@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Plus, Minus, Trophy } from "lucide-react";
 import {
+  aboutData,
   aboutCards,
   experiences,
   educations,
@@ -78,11 +79,7 @@ export default function AboutSection() {
           {/* Right: Text & Cards */}
           <motion.div variants={slideRight} className="lg:col-span-3">
             <p className="mb-10 text-base leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg md:leading-loose">
-              Learned a lot of new technologies on my own in recent years
-              through the internet. Can work well with others in a team, put in
-              hard work, be flexible, have strong honesty, and communicate
-              clearly. High motivation and commitment to deliver the best
-              possible performance for the company.
+              {aboutData.description}
             </p>
 
             {/* Cards Grid — hover lift (desktop) + tap press (mobile) */}

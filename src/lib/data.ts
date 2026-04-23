@@ -82,6 +82,8 @@ export interface SocialLink {
 }
 
 export interface HeroData {
+  role: string;
+  description: string;
   typewriterTexts: string[];
   contactHref: string;
   resumeHref: string;
@@ -174,6 +176,9 @@ export const socialLinks: SocialLink[] = [
 // ─────────────────────────────────────────────
 
 export const heroData: HeroData = {
+  role: "junior web developer",
+  description:
+    "I am a Junior Web Developer from Bogor City, Indonesia. Has experience as a Full-stack Developer. Passionate about Web Development, Emerging Tech, AI, Blockchain and Web3.",
   typewriterTexts: [
     "Hi! I'm Riza Fahdan Syahda 👋",
     "Or you can call me Kupzed 👋",
@@ -184,8 +189,17 @@ export const heroData: HeroData = {
 };
 
 // ─────────────────────────────────────────────
-// ABOUT SECTION — info cards
+// ABOUT SECTION
 // ─────────────────────────────────────────────
+
+export interface AboutData {
+  description: string;
+}
+
+export const aboutData: AboutData = {
+  description:
+    "Learned a lot of new technologies on my own in recent years through the internet. Can work well with others in a team, put in hard work, be flexible, have strong honesty, and communicate clearly. High motivation and commitment to deliver the best possible performance for the company.",
+};
 
 export const aboutCards: AboutCard[] = [
   {

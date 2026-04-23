@@ -102,7 +102,7 @@ export default function HeroSection() {
           className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: "var(--font-serif)" }}
         >
-          junior web developer{" "}
+          {heroData.role}{" "}
           <span className="text-gray-500 dark:text-gray-400">based in</span>{" "}
           Bogor City<span className="text-accent">.</span>
         </motion.h1>
@@ -112,9 +112,7 @@ export default function HeroSection() {
           variants={slideUpFade}
           className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
         >
-          I am a Junior Web Developer from Bogor City, Indonesia. Has experience
-          as a Full-stack Developer. Passionate about Web Development, Emerging
-          Tech, AI, Blockchain and Web3.
+          {heroData.description}
         </motion.p>
 
         {/* ── CTA Buttons — slideUpFade spring ── */}
