@@ -8,7 +8,7 @@ import Footer from "@/components/ui/Footer";
 
 export default function Home() {
   return (
-    <main className="mesh-bg min-h-screen">
+    <main className="min-h-screen">
       <Navbar />
       <HeroSection />
       <AboutSection />

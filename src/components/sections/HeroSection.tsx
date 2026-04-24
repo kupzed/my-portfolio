@@ -1,59 +1,42 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { heroData } from "@/lib/data";
-import { stagger, blurIn, slideUpFade, scaleIn, floatLoop } from "@/lib/motion";
-
-const Typewriter = ({ texts }: { texts: string[] }) => {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentText = texts[index % texts.length];
-    const currentChars = Array.from(currentText);
-    const textChars = Array.from(text);
-
-    let typeSpeed = 80;
-    if (isDeleting) typeSpeed = 40;
-
-    if (!isDeleting && text === currentText) {
-      typeSpeed = 2000;
-    } else if (isDeleting && text === "") {
-      typeSpeed = 500;
-    }
-
-    const timer = setTimeout(() => {
-      if (!isDeleting && text === currentText) {
-        setIsDeleting(true);
-      } else if (isDeleting && text === "") {
-        setIsDeleting(false);
-        setIndex((prev) => prev + 1);
-      } else {
-        const nextChars = isDeleting
-          ? currentChars.slice(0, textChars.length - 1)
-          : currentChars.slice(0, textChars.length + 1);
-        setText(nextChars.join(""));
-      }
-    }, typeSpeed);
-
-    return () => clearTimeout(timer);
-  }, [text, isDeleting, index, texts]);
-
-  return (
-    <span className="inline-flex items-center">
-      <span>{text}</span>
-      {/* Terminal-style cursor: scaleY blink instead of opacity flicker */}
-      <span className="cursor-blink ml-[2px] inline-block h-[1.2em] w-[2px] bg-current" />
-    </span>
-  );
-};
+import { heroData, skillsByTab } from "@/lib/data";
+import { stagger, blurIn, slideUpFade } from "@/lib/motion";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
   const shouldReduce = useReducedMotion();
+  const [textIndex, setTextIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (shouldReduce) {
+      setDisplayText(heroData.typewriterTexts[0]);
+      return;
+    }
+    const currentText = heroData.typewriterTexts[textIndex];
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setDisplayText(currentText.substring(0, displayText.length + 1));
+          if (displayText === currentText)
+            setTimeout(() => setIsDeleting(true), 2000);
+        } else {
+          setDisplayText(currentText.substring(0, displayText.length - 1));
+          if (displayText === "") {
+            setIsDeleting(false);
+            setTextIndex(
+              (prev) => (prev + 1) % heroData.typewriterTexts.length,
+            );
+          }
+        }
+      },
+      isDeleting ? 30 : 60,
+    );
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, textIndex, shouldReduce]);
 
   return (
     <section
@@ -64,63 +47,48 @@ export default function HeroSection() {
         variants={stagger}
         initial="hidden"
         animate="visible"
-        className="flex max-w-3xl flex-col items-center text-center"
+        className="flex max-w-5xl flex-col items-center text-center"
       >
-        {/* ── Avatar — scaleIn mount + floatLoop ── */}
-        <motion.div
-          variants={scaleIn}
-          className="mb-6"
-          animate={shouldReduce ? undefined : "animate"}
-        >
-          <motion.div
-            variants={floatLoop}
-            animate={shouldReduce ? undefined : "animate"}
-            className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white shadow-xl dark:border-gray-700 md:h-32 md:w-32"
-          >
-            <Image
-              src="/avatar/avatar-01.png"
-              alt="Riza Fahdan Syahda — Frontend Developer"
-              fill
-              sizes="(max-width: 768px) 112px, 128px"
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* ── Greeting / Typewriter ── */}
-        <motion.p
+        {/* ── Announcement Badge ── */}
+        <motion.a
           variants={blurIn}
-          className="mb-4 flex h-[20px] items-center text-sm font-medium tracking-wide text-gray-500 dark:text-gray-400 md:h-[24px] md:text-base"
+          href={heroData.resumeHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mb-8 inline-flex cursor-pointer items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-1.5 text-sm text-gray-600 dark:text-white/70 hover:border-accent/40 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
-          <Typewriter texts={heroData.typewriterTexts} />
-        </motion.p>
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+          </span>
+          <span className="text-left">
+            {displayText}
+            <span className="animate-pulse">|</span>
+          </span>
+        </motion.a>
 
-        {/* ── Headline — blurIn for cinematic focus ── */}
+        {/* ── Headline ── */}
         <motion.h1
           variants={blurIn}
-          className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl"
-          style={{ fontFamily: "var(--font-serif)" }}
+          className="flex flex-col items-center justify-center font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl leading-tight"
         >
-          {heroData.role}{" "}
-          <span className="text-gray-500 dark:text-gray-400">based in</span>{" "}
-          Bogor City<span className="text-accent">.</span>
+          <span>{heroData.role}</span>
+          <span className="text-accent"> based in Bogor City.</span>
         </motion.h1>
 
-        {/* ── Sub-headline — slideUpFade with slight delay ── */}
+        {/* ── Description ── */}
         <motion.p
           variants={slideUpFade}
-          className="mb-10 max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400 md:text-lg"
+          className="mt-6 max-w-2xl text-center text-base leading-relaxed text-gray-600 dark:text-white/50 md:text-lg"
         >
           {heroData.description}
         </motion.p>
 
-        {/* ── CTA Buttons — slideUpFade spring ── */}
+        {/* ── CTA Buttons ── */}
         <motion.div
           variants={slideUpFade}
-          className="flex flex-col items-center gap-4 sm:flex-row"
+          className="mt-10 flex items-center gap-4"
         >
-          {/* Contact Me */}
           <motion.a
             href={heroData.contactHref}
             target="_blank"
@@ -128,12 +96,11 @@ export default function HeroSection() {
             whileHover={shouldReduce ? undefined : { scale: 1.05 }}
             whileTap={shouldReduce ? undefined : { scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-gray-800 dark:bg-transparent dark:border dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900 sm:px-8"
+            className="rounded-md bg-accent px-5 py-2 font-semibold text-background transition-colors hover:bg-accent-dark"
           >
-            contact me <ArrowRight size={16} />
+            Start a project
           </motion.a>
 
-          {/* My Resume */}
           <motion.a
             href={heroData.resumeHref}
             target="_blank"
@@ -141,10 +108,30 @@ export default function HeroSection() {
             whileHover={shouldReduce ? undefined : { scale: 1.05 }}
             whileTap={shouldReduce ? undefined : { scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:bg-white dark:text-gray-900 dark:hover:bg-transparent dark:hover:text-white sm:px-8"
+            className="rounded-md border border-black/10 dark:border-white/20 bg-transparent px-5 py-2 text-gray-900 dark:text-white transition-colors hover:bg-black/5 dark:hover:bg-white/5"
           >
-            my resume <Download size={16} />
+            My Resume
           </motion.a>
+        </motion.div>
+
+        {/* ── Trusted By Logos (Built with) ── */}
+        <motion.div
+          variants={slideUpFade}
+          className="mt-16 flex flex-col items-center"
+        >
+          <span className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40">
+            Built with
+          </span>
+          <div className="flex items-center gap-6">
+            {skillsByTab.Frontend.slice(0, 5).map((tech) => (
+              <tech.icon
+                key={tech.name}
+                size={24}
+                className="opacity-40 transition-opacity hover:opacity-80"
+                style={{ color: tech.color }}
+              />
+            ))}
+          </div>
         </motion.div>
       </motion.div>
     </section>

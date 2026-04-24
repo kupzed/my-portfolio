@@ -48,8 +48,7 @@ export default function AboutSection() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            className="font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
           >
             About Me
           </motion.h2>
@@ -97,17 +96,17 @@ export default function AboutSection() {
                   whileHover={shouldReduce ? undefined : { scale: 1.03, y: -3 }}
                   whileTap={shouldReduce ? undefined : { scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="group cursor-default rounded-2xl border border-black/10 bg-white/40 p-5 backdrop-blur-sm hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:shadow-white/5"
+                  className="supabase-card group cursor-default p-5"
                 >
                   <card.icon
                     size={28}
                     className="mb-3 text-gray-700 dark:text-gray-300"
                     strokeWidth={1.5}
                   />
-                  <h3 className="mb-1 text-base font-bold text-gray-900 dark:text-white">
+                  <h3 className="mb-1 text-base font-bold text-accent">
                     {card.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                  <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                     {card.text}
                   </p>
                 </motion.div>
@@ -126,14 +125,13 @@ export default function AboutSection() {
         >
           <motion.h2
             variants={fadeUp}
-            className="mb-12 font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            className="mb-12 font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
           >
             Experiences
           </motion.h2>
           <motion.div
             variants={fadeUp}
-            className="flex flex-col border-t border-black/10 dark:border-white/10"
+            className="flex flex-col border-t border-gray-200 dark:border-white/8"
           >
             {experiences.map((exp, idx) => {
               const isOpen = openExp === idx;
@@ -141,11 +139,11 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenExp(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-black/10 py-8 hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
+                  className="group cursor-pointer border-b border-gray-200 dark:border-white/8 py-8 hover:bg-gray-100 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
+                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors">
                         {exp.role}
                       </h3>
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
@@ -169,7 +167,7 @@ export default function AboutSection() {
                     transition={accordionTransition}
                     className="overflow-hidden"
                   >
-                    <ul className="list-disc space-y-4 pl-5 text-sm leading-relaxed text-gray-600 marker:text-gray-400 dark:text-gray-300 md:text-base">
+                    <ul className="list-disc space-y-4 pl-5 text-sm leading-relaxed text-gray-700 marker:text-gray-400 dark:text-gray-300 md:text-base">
                       {exp.description.map((desc, i) => (
                         <li key={i}>{desc}</li>
                       ))}
@@ -191,14 +189,13 @@ export default function AboutSection() {
         >
           <motion.h2
             variants={fadeUp}
-            className="mb-12 font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            className="mb-12 font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
           >
             Education
           </motion.h2>
           <motion.div
             variants={fadeUp}
-            className="flex flex-col border-t border-black/10 dark:border-white/10"
+            className="flex flex-col border-t border-gray-200 dark:border-white/8"
           >
             {educations.map((edu, idx) => {
               const isOpen = openEdu === idx;
@@ -206,11 +203,11 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenEdu(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-black/10 py-8 hover:bg-black/2 dark:border-white/10 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl"
+                  className="group cursor-pointer border-b border-gray-200 dark:border-white/8 py-8 hover:bg-gray-100 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-black dark:text-white dark:group-hover:text-white md:text-3xl lg:text-4xl">
+                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors">
                         {edu.degree}
                       </h3>
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
@@ -234,7 +231,7 @@ export default function AboutSection() {
                     transition={accordionTransition}
                     className="overflow-hidden"
                   >
-                    <div className="space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300 md:text-base">
+                    <div className="space-y-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 md:text-base">
                       {edu.details.map((detail, i) => (
                         <p key={i}>{detail}</p>
                       ))}
@@ -257,15 +254,14 @@ export default function AboutSection() {
           <div className="mb-12 text-center">
             <motion.div
               variants={fadeUp}
-              className="mb-3 flex items-center justify-center gap-2 text-sm font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500"
+              className="mb-3 flex items-center justify-center gap-2 text-sm font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400"
             >
               <Trophy size={16} />
               <span>Recognition</span>
             </motion.div>
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
-              style={{ fontFamily: "var(--font-serif)" }}
+              className="font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
             >
               Awards &amp; Certifications
             </motion.h2>
@@ -286,10 +282,10 @@ export default function AboutSection() {
                 }}
                 whileHover={shouldReduce ? undefined : { scale: 1.02, y: -2 }}
                 whileTap={shouldReduce ? undefined : { scale: 0.97 }}
-                className="group cursor-default flex flex-col justify-between gap-4 rounded-2xl border border-black/10 bg-white/40 p-6 hover:border-black/25 hover:shadow-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10 dark:hover:shadow-white/5 sm:flex-row sm:items-center sm:p-8"
+                className="supabase-card group cursor-default flex flex-col justify-between gap-4 p-6 hover:border-accent/30 sm:flex-row sm:items-center sm:p-8"
               >
                 <div>
-                  <h3 className="mb-2 text-xl font-bold text-gray-900 group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400 md:text-2xl">
+                  <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white group-hover:text-accent md:text-2xl transition-colors">
                     {cert.title}
                   </h3>
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-400">

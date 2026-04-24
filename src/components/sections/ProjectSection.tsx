@@ -123,8 +123,7 @@ export default function PortfolioSection() {
             </motion.p>
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
-              style={{ fontFamily: "var(--font-serif)" }}
+              className="font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
             >
               Selected Works
             </motion.h2>
@@ -145,7 +144,7 @@ export default function PortfolioSection() {
                 whileHover={shouldReduce ? undefined : { y: -6 }}
                 whileTap={shouldReduce ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm hover:shadow-xl dark:border-white/10 dark:bg-[#111027] dark:hover:shadow-purple-500/10"
+                className="group flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm dark:border-white/8 dark:bg-[rgba(255,255,255,0.03)] dark:shadow-none transition-colors hover:border-accent/30 hover:shadow-md dark:hover:shadow-none"
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video w-full overflow-hidden">
@@ -157,6 +156,7 @@ export default function PortfolioSection() {
                     loading="eager"
                     className="object-cover transition-[transform,filter] duration-500 group-hover:scale-105 group-hover:brightness-110"
                   />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
                 </div>
 
                 {/* Content */}
@@ -185,7 +185,7 @@ export default function PortfolioSection() {
                     whileHover={shouldReduce ? undefined : { scale: 1.05 }}
                     whileTap={shouldReduce ? undefined : { scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="mt-auto w-full rounded-lg bg-purple-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-500"
+                    className="supabase-card mt-auto w-full rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
                   >
                     Detail
                   </motion.button>
@@ -241,10 +241,10 @@ export default function PortfolioSection() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`btn-scale inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-colors ${
+                  className={`btn-scale inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition-colors ${
                     link.variant === "primary"
-                      ? "bg-purple-600 text-white hover:bg-purple-700"
-                      : "bg-rose-500 text-white hover:bg-rose-600"
+                      ? "bg-accent text-background hover:bg-accent-dark"
+                      : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
                   }`}
                 >
                   {link.label} <ExternalLink size={14} />

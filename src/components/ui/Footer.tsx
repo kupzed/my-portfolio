@@ -8,7 +8,7 @@ import { fadeIn, stagger, viewportOnce } from "@/lib/motion";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/10 dark:border-white/10">
+    <footer className="border-t border-black/5 dark:border-white/8">
       <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
         <motion.div
           variants={stagger}
@@ -31,7 +31,7 @@ export default function Footer() {
             </p>
             <a
               href="mailto:rizafahdansyahda3@gmail.com"
-              className="mt-6 btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-5 py-2 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900"
+              className="mt-6 btn-scale inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/20 px-5 py-2 text-sm font-medium text-gray-600 dark:text-white/70 hover:border-accent hover:text-gray-900 dark:hover:border-accent/50 dark:hover:text-white transition-colors"
             >
               <Mail size={16} strokeWidth={2} />
               rizafahdansyahda3@gmail.com
@@ -43,7 +43,7 @@ export default function Footer() {
             variants={fadeIn}
             className="col-span-1 md:col-span-1 lg:col-span-1"
           >
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/50">
               Sitemap
             </h3>
             <ul className="flex flex-col space-y-3 text-sm">
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 transition-colors hover:text-accent dark:text-gray-400 dark:hover:text-white"
+                    className="text-gray-600 dark:text-gray-400 transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -65,7 +65,7 @@ export default function Footer() {
             variants={fadeIn}
             className="col-span-1 md:col-span-1 lg:col-span-1"
           >
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/50">
               Socials
             </h3>
             <ul className="flex flex-col space-y-3 text-sm">
@@ -77,7 +77,7 @@ export default function Footer() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex w-fit items-center gap-2 text-gray-700 transition-colors hover:text-accent dark:text-gray-400 dark:hover:text-white"
+                      className="group flex w-fit items-center gap-2 text-gray-600 dark:text-gray-400 transition-colors hover:text-accent"
                     >
                       <span className="transition-transform group-hover:scale-110">
                         <Icon size={18} strokeWidth={1.5} />
@@ -98,9 +98,9 @@ export default function Footer() {
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        className="border-t border-black/10 dark:border-white/10"
+        className="border-t border-black/5 dark:border-white/8"
       >
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-xs text-gray-500 dark:text-gray-400 md:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-xs text-gray-500 dark:text-gray-500 md:flex-row">
           <p>
             © {new Date().getFullYear()} Riza Fahdan Syahda. All Rights
             Reserved.

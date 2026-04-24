@@ -76,7 +76,7 @@ export default function Navbar() {
         });
       });
     },
-    []
+    [],
   );
 
   const themeIcon = !mounted ? (
@@ -94,8 +94,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b transition-[background-color,border-color,box-shadow] duration-300 ${
           scrolled
-            ? "bg-white/80 dark:bg-[#0b0716]/80 border-gray-200/40 dark:border-white/10 shadow-sm"
-            : "bg-white/0 dark:bg-[#0b0716]/0 border-transparent"
+            ? "bg-[#f9f9f9]/80 dark:bg-background/80 border-black/5 dark:border-[#f9f9f9]/8 shadow-sm"
+            : "bg-[#f9f9f9]/0 dark:bg-background/0 border-transparent"
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
@@ -115,7 +115,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="nav-link text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
                 >
                   {link.label}
                 </a>
@@ -137,9 +137,9 @@ export default function Navbar() {
               href="https://wa.me/+628988449176"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-scale inline-flex items-center gap-1.5 rounded-full border border-gray-900 dark:border-white px-5 py-2 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900"
+              className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
             >
-              Contact me <ArrowUpRight size={14} />
+              Contact me
             </a>
           </div>
 
@@ -196,7 +196,7 @@ export default function Navbar() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 top-16 z-40 bg-white/97 dark:bg-[#0b0716]/97 backdrop-blur-xl md:hidden overflow-y-auto"
+            className="fixed inset-0 top-16 z-40 bg-[#f9f9f9]/98 dark:bg-background/98 backdrop-blur-xl md:hidden overflow-y-auto"
           >
             <ul className="flex flex-col items-center justify-center gap-10 py-16 min-h-[calc(100vh-4rem)]">
               {navLinks.map((link, i) => (
@@ -210,7 +210,7 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={(e) => handleMobileNavClick(e, link.href)}
-                    className="text-2xl font-semibold text-gray-800 dark:text-gray-100 hover:text-accent dark:hover:text-accent transition-colors duration-200"
+                    className="text-2xl font-semibold text-gray-800 dark:text-white/80 hover:text-accent transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -239,7 +239,7 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-2 rounded-full bg-gray-900 dark:bg-white px-8 py-3.5 text-base font-semibold text-white dark:text-gray-900 shadow-lg"
+                  className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
                 >
                   Contact me <ArrowUpRight size={18} />
                 </a>

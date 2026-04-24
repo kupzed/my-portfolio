@@ -11,7 +11,7 @@ import {
 } from "@/lib/motion";
 
 const inputClasses =
-  "input-glow w-full rounded-xl border border-black/20 bg-transparent px-4 py-3 text-gray-900 placeholder-gray-400 outline-none focus:border-black/50 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:text-white dark:placeholder-gray-500 dark:focus:border-white/50 dark:focus:ring-white/10";
+  "input-glow w-full rounded-md border border-black/10 dark:border-white/8 bg-black/5 dark:bg-white/3 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/10";
 
 export default function ContactSection() {
   const shouldReduce = useReducedMotion();
@@ -35,15 +35,14 @@ export default function ContactSection() {
 
           <motion.h2
             variants={fadeUp}
-            className="mb-4 font-serif text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
-            style={{ fontFamily: "var(--font-serif)" }}
+            className="mb-4 font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
           >
             Get in touch
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="mx-auto max-w-xl text-base leading-relaxed text-gray-500 dark:text-gray-400"
+            className="mb-10 text-base leading-relaxed text-gray-600 dark:text-white/50 md:text-lg"
           >
             Feel free to contact me. My inbox is always open. Whether you have
             any questions or just want to say hello, I&apos;ll try my best to
@@ -100,13 +99,9 @@ export default function ContactSection() {
               whileHover={shouldReduce ? undefined : { scale: 1.05 }}
               whileTap={shouldReduce ? undefined : { scale: 0.97 }}
               transition={{ type: "spring", stiffness: 350, damping: 20 }}
-              className="group inline-flex items-center gap-2 rounded-full border border-gray-900 bg-transparent px-7 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-900 hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900"
+              className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
             >
               Submit now
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              />
             </motion.button>
           </motion.div>
         </motion.form>
