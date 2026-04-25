@@ -11,11 +11,13 @@ export default function HeroSection() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const typewriterText = shouldReduce
+    ? heroData.typewriterTexts[0]
+    : displayText;
+
   useEffect(() => {
-    if (shouldReduce) {
-      setDisplayText(heroData.typewriterTexts[0]);
-      return;
-    }
+    if (shouldReduce) return;
+
     const currentText = heroData.typewriterTexts[textIndex];
     const timeout = setTimeout(
       () => {
@@ -62,7 +64,7 @@ export default function HeroSection() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
           </span>
           <span className="text-left">
-            {displayText}
+            {typewriterText}
             <span className="animate-pulse">|</span>
           </span>
         </motion.a>
@@ -73,7 +75,7 @@ export default function HeroSection() {
           className="flex flex-col items-center justify-center font-sans text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl leading-tight"
         >
           <span>{heroData.role}</span>
-          <span className="text-accent"> based in Bogor City.</span>
+          <span className="text-accent">Based in Bogor City.</span>
         </motion.h1>
 
         {/* ── Description ── */}

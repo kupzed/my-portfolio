@@ -176,9 +176,9 @@ export const socialLinks: SocialLink[] = [
 // ─────────────────────────────────────────────
 
 export const heroData: HeroData = {
-  role: "junior web developer",
+  role: "Junior Fullstack Developer",
   description:
-    "I am a Junior Web Developer from Bogor City, Indonesia. Has experience as a Full-stack Developer. Passionate about Web Development, Emerging Tech, AI, Blockchain and Web3.",
+    "I am a Junior Fullstack Developer based in Bogor, Indonesia. Passionate about building modern web applications and exploring emerging technologies like AI, Blockchain, and Web3.",
   typewriterTexts: [
     "Hi! I'm Riza Fahdan Syahda 👋",
     "Or you can call me Kupzed 👋",
