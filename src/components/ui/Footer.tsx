@@ -43,7 +43,7 @@ export default function Footer() {
             variants={fadeIn}
             className="col-span-1 md:col-span-1 lg:col-span-1"
           >
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/50">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-900 dark:text-white">
               Sitemap
             </h3>
             <ul className="flex flex-col space-y-3 text-sm">
@@ -65,7 +65,7 @@ export default function Footer() {
             variants={fadeIn}
             className="col-span-1 md:col-span-1 lg:col-span-1"
           >
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/50">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-900 dark:text-white">
               Socials
             </h3>
             <ul className="flex flex-col space-y-3 text-sm">
@@ -100,7 +100,7 @@ export default function Footer() {
         viewport={viewportOnce}
         className="border-t border-border-light dark:border-border"
       >
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-xs text-gray-500 dark:text-gray-500 md:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-xs text-gray-600 dark:text-gray-400 md:flex-row">
           <p>
             © {new Date().getFullYear()} Riza Fahdan Syahda. All Rights
             Reserved.

@@ -98,13 +98,13 @@ export default function Navbar() {
             : "bg-surface-light/0 dark:bg-background/0 border-transparent"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-0">
           {/* ── Logo — playful letterSpacing spring on hover ── */}
           <motion.a
             href="#home"
-            whileHover={shouldReduce ? undefined : { letterSpacing: "0.05em" }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className="text-xl font-bold tracking-tight text-gray-900 dark:text-white select-none"
+            whileHover={shouldReduce ? undefined : { scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="inline-block text-xl font-bold tracking-tight text-gray-900 dark:text-white select-none"
           >
             Kupzed<span className="text-accent">.</span>
           </motion.a>
