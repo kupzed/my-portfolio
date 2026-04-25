@@ -10,7 +10,7 @@ import {
 } from "@/lib/motion";
 
 const inputClasses =
-  "input-glow w-full rounded-md border border-black/10 dark:border-white/8 bg-black/5 dark:bg-white/3 px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/10";
+  "input-glow w-full rounded-md border border-border-light dark:border-border bg-black/5 dark:bg-surface px-4 py-3 text-background dark:text-foreground placeholder-gray-400 dark:placeholder-gray-500 outline-none focus:border-accent/60 focus:ring-2 focus:ring-accent/10";
 
 export default function ContactSection() {
   const shouldReduce = useReducedMotion();
@@ -98,7 +98,7 @@ export default function ContactSection() {
               whileHover={shouldReduce ? undefined : { scale: 1.05 }}
               whileTap={shouldReduce ? undefined : { scale: 0.97 }}
               transition={{ type: "spring", stiffness: 350, damping: 20 }}
-              className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
+              className="btn-scale btn-primary inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold transition-colors"
             >
               Submit now
             </motion.button>

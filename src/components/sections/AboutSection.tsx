@@ -100,12 +100,10 @@ export default function AboutSection() {
                 >
                   <card.icon
                     size={28}
-                    className="mb-3 text-gray-700 dark:text-gray-300"
+                    className="mb-3 text-background dark:text-foreground"
                     strokeWidth={1.5}
                   />
-                  <h3 className="mb-1 text-base font-bold text-accent">
-                    {card.title}
-                  </h3>
+                  <h3 className="mb-1 text-base font-bold">{card.title}</h3>
                   <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                     {card.text}
                   </p>
@@ -131,7 +129,7 @@ export default function AboutSection() {
           </motion.h2>
           <motion.div
             variants={fadeUp}
-            className="flex flex-col border-t border-gray-200 dark:border-white/8"
+            className="flex flex-col border-t border-border-light dark:border-border"
           >
             {experiences.map((exp, idx) => {
               const isOpen = openExp === idx;
@@ -139,7 +137,7 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenExp(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-gray-200 dark:border-white/8 py-8 hover:bg-gray-100 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
+                  className="group cursor-pointer border-b border-border-light dark:border-border py-8 hover:bg-black/5 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>
@@ -195,7 +193,7 @@ export default function AboutSection() {
           </motion.h2>
           <motion.div
             variants={fadeUp}
-            className="flex flex-col border-t border-gray-200 dark:border-white/8"
+            className="flex flex-col border-t border-border-light dark:border-border"
           >
             {educations.map((edu, idx) => {
               const isOpen = openEdu === idx;
@@ -203,7 +201,7 @@ export default function AboutSection() {
                 <div
                   key={idx}
                   onClick={() => setOpenEdu(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-gray-200 dark:border-white/8 py-8 hover:bg-gray-100 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
+                  className="group cursor-pointer border-b border-border-light dark:border-border py-8 hover:bg-black/5 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div>

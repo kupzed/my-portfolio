@@ -8,10 +8,12 @@
 @theme inline {
   --color-background: #1c1c1c;
   --color-foreground: #ededed;
-  --color-accent: #3ecf8e; /* Supabase green */
+  --color-accent: #3ecf8e;
   --color-accent-dark: #22a06b;
   --color-surface: #1a1a1a;
   --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(0, 0, 0, 0.08);
+  --color-surface-light: #ffffff;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Fira Code", "JetBrains Mono", ui-monospace, monospace;
 }
@@ -57,14 +59,14 @@ body {
    Mesh gradient background (light → dark)
    ────────────────────────────────────────── */
 body {
-  background-color: #f9f9f9 !important;
-  color: #1c1c1c !important;
+  background-color: var(--color-surface-light) !important;
+  color: var(--color-background) !important;
   background-image: none;
 }
 
 .dark body {
-  background-color: #1c1c1c !important;
-  color: #ededed !important;
+  background-color: var(--color-background) !important;
+  color: var(--color-foreground) !important;
   background-image:
     radial-gradient(
       ellipse 80% 50% at 50% -10%,
@@ -79,8 +81,8 @@ body {
 }
 
 .supabase-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border-light);
   border-radius: 8px;
   transition:
     border-color 0.2s ease,
@@ -94,8 +96,8 @@ body {
 }
 
 .dark .supabase-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   box-shadow: none;
 }
 .dark .supabase-card:hover {
@@ -123,6 +125,50 @@ body {
 }
 .nav-link:hover::after {
   transform: scaleX(1);
+}
+
+/* ──────────────────────────────────────────
+   Button system — color variants
+   ────────────────────────────────────────── */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  border: 1px solid var(--color-accent-dark);
+}
+.btn-primary:hover {
+  background-color: var(--color-accent-dark);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+.dark .btn-primary {
+  background-color: var(--color-accent-dark);
+  color: #ffffff;
+  border: 1px solid var(--color-accent-dark);
+}
+.dark .btn-primary:hover {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  border-color: var(--color-accent);
+}
+
+.btn-secondary {
+  background-color: rgba(0, 0, 0, 0.03);
+  color: var(--color-background);
+  border: 1px solid var(--color-border-light);
+}
+.btn-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.dark .btn-secondary {
+  background-color: var(--color-surface); /* #1a1a1a - solid dark grey */
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border);
+}
+.dark .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ──────────────────────────────────────────

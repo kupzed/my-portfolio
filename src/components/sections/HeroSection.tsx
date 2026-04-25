@@ -98,7 +98,7 @@ export default function HeroSection() {
             whileHover={shouldReduce ? undefined : { scale: 1.05 }}
             whileTap={shouldReduce ? undefined : { scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="rounded-md bg-accent px-5 py-2 font-semibold text-background transition-colors hover:bg-accent-dark"
+            className="btn-scale btn-primary rounded-md px-5 py-2 font-semibold transition-colors"
           >
             Start a project
           </motion.a>
@@ -110,7 +110,7 @@ export default function HeroSection() {
             whileHover={shouldReduce ? undefined : { scale: 1.05 }}
             whileTap={shouldReduce ? undefined : { scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="rounded-md border border-black/10 dark:border-white/20 bg-transparent px-5 py-2 text-gray-900 dark:text-white transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+            className="btn-scale btn-secondary rounded-md px-5 py-2 transition-colors"
           >
             My Resume
           </motion.a>

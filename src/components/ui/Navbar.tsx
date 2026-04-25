@@ -94,8 +94,8 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b transition-[background-color,border-color,box-shadow] duration-300 ${
           scrolled
-            ? "bg-[#f9f9f9]/80 dark:bg-background/80 border-black/5 dark:border-[#f9f9f9]/8 shadow-sm"
-            : "bg-[#f9f9f9]/0 dark:bg-background/0 border-transparent"
+            ? "bg-surface-light/80 dark:bg-background/80 border-border-light dark:border-border shadow-sm"
+            : "bg-surface-light/0 dark:bg-background/0 border-transparent"
         }`}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
@@ -137,7 +137,7 @@ export default function Navbar() {
               href="https://wa.me/+628988449176"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
+              className="btn-scale btn-primary inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold transition-colors"
             >
               Contact me
             </a>

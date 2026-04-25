@@ -144,7 +144,7 @@ export default function PortfolioSection() {
                 whileHover={shouldReduce ? undefined : { y: -6 }}
                 whileTap={shouldReduce ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="group flex flex-col overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm dark:border-white/8 dark:bg-[rgba(255,255,255,0.03)] dark:shadow-none transition-colors hover:border-accent/30 hover:shadow-md dark:hover:shadow-none"
+                className="group flex flex-col overflow-hidden rounded-xl supabase-card dark:shadow-none transition-colors hover:shadow-md dark:hover:shadow-none"
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video w-full overflow-hidden">
@@ -185,7 +185,7 @@ export default function PortfolioSection() {
                     whileHover={shouldReduce ? undefined : { scale: 1.05 }}
                     whileTap={shouldReduce ? undefined : { scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                    className="supabase-card mt-auto w-full rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
+                    className="btn-scale btn-primary mt-auto w-full rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
                   >
                     Detail
                   </motion.button>
@@ -242,9 +242,7 @@ export default function PortfolioSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`btn-scale inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition-colors ${
-                    link.variant === "primary"
-                      ? "bg-accent text-background hover:bg-accent-dark"
-                      : "bg-gray-100 text-gray-900 hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+                    link.variant === "primary" ? "btn-primary" : "btn-secondary"
                   }`}
                 >
                   {link.label} <ExternalLink size={14} />

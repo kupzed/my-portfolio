@@ -8,7 +8,7 @@ import { fadeIn, stagger, viewportOnce } from "@/lib/motion";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-black/5 dark:border-white/8">
+    <footer className="border-t border-border-light dark:border-border">
       <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
         <motion.div
           variants={stagger}
@@ -31,7 +31,7 @@ export default function Footer() {
             </p>
             <a
               href="mailto:rizafahdansyahda3@gmail.com"
-              className="mt-6 btn-scale inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/20 px-5 py-2 text-sm font-medium text-gray-600 dark:text-white/70 hover:border-accent hover:text-gray-900 dark:hover:border-accent/50 dark:hover:text-white transition-colors"
+              className="mt-6 btn-scale btn-secondary inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition-colors"
             >
               <Mail size={16} strokeWidth={2} />
               rizafahdansyahda3@gmail.com
@@ -98,7 +98,7 @@ export default function Footer() {
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        className="border-t border-black/5 dark:border-white/8"
+        className="border-t border-border-light dark:border-border"
       >
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-xs text-gray-500 dark:text-gray-500 md:flex-row">
           <p>

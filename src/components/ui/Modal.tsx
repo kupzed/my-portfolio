@@ -49,14 +49,14 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="relative my-auto w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-8 shadow-2xl border border-black/10 dark:bg-background dark:border-white/10"
+            className="relative my-auto w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl bg-surface-light p-8 shadow-2xl border border-border-light dark:bg-background dark:border-border"
           >
             {/* Close */}
             <button
               onClick={onClose}
               aria-label="Close modal"
               suppressHydrationWarning
-              className="sticky top-0 right-0 z-10 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-white/80 dark:bg-background/80 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white transition-colors"
+              className="sticky top-0 right-0 z-10 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-surface-light/80 dark:bg-background/80 text-background/50 dark:text-foreground/50 hover:bg-black/5 dark:hover:bg-white/10 hover:text-background dark:hover:text-foreground transition-colors"
             >
               <X size={18} />
             </button>

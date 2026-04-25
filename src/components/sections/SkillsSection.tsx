@@ -165,7 +165,7 @@ export default function SkillsSection() {
           viewport={viewportOnceMore}
           className="mb-10 flex justify-center"
         >
-          <div className="flex border-b border-black/10 dark:border-white/8 gap-0">
+          <div className="flex border-b border-border-light dark:border-border gap-0">
             {SKILL_TABS.map((tab) => (
               <motion.button
                 key={tab}
@@ -176,8 +176,8 @@ export default function SkillsSection() {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className={`relative px-5 py-3 text-sm font-medium transition-colors duration-200 -mb-px border-b-2 ${
                   activeTab === tab
-                    ? "border-accent text-gray-900 dark:text-white"
-                    : "border-transparent text-gray-500 hover:text-gray-900 dark:text-white/40 dark:hover:text-white/70"
+                    ? "border-accent text-background dark:text-foreground"
+                    : "border-transparent text-gray-500 hover:text-background dark:text-foreground/40 dark:hover:text-foreground/70"
                 }`}
               >
                 {tab}
