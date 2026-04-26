@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { ThemeProvider } from "@/components/common/theme-provider";
 import "./globals.css";
 
 const inter = Inter({

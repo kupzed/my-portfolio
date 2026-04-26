@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, useReducedMotion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import Modal from "../ui/Modal";
+import Modal from "../ui/modal";
 import Image from "next/image";
 import {
   SiReact,
