@@ -121,9 +121,9 @@ export default function HeroSection() {
           variants={slideUpFade}
           className="mt-16 flex flex-col items-center"
         >
-          <span className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40">
+          {/* <span className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40">
             Built with
-          </span>
+          </span> */}
           <div className="flex items-center gap-6">
             {skillsByTab.Frontend.slice(0, 5).map((tech) => (
               <tech.icon
