@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { heroData, skillsByTab } from "@/lib/data";
+import { heroData } from "@/lib/data";
 import { stagger, blurIn, slideUpFade } from "@/lib/motion";
 import { useState, useEffect } from "react";
+import { SkillsMarquee } from "@/components/ui/skills-marquee";
 
 export default function HeroSection() {
   const shouldReduce = useReducedMotion();
@@ -43,13 +44,13 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center justify-center px-5 pt-24 pb-16 md:pt-28 md:pb-24"
+      className="relative flex min-h-screen items-center justify-center px-5 pt-24 pb-16 md:pt-28 md:pb-24 overflow-hidden"
     >
       <motion.div
         variants={stagger}
         initial="hidden"
         animate="visible"
-        className="flex max-w-5xl flex-col items-center text-center"
+        className="flex w-full max-w-5xl flex-col items-center text-center"
       >
         {/* ── Announcement Badge ── */}
         <motion.a
@@ -116,25 +117,8 @@ export default function HeroSection() {
           </motion.a>
         </motion.div>
 
-        {/* ── Trusted By Logos (Built with) ── */}
-        <motion.div
-          variants={slideUpFade}
-          className="mt-16 flex flex-col items-center"
-        >
-          {/* <span className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-white/40">
-            Built with
-          </span> */}
-          <div className="flex items-center gap-6">
-            {skillsByTab.Frontend.slice(0, 5).map((tech) => (
-              <tech.icon
-                key={tech.name}
-                size={24}
-                className="opacity-40 transition-opacity hover:opacity-80"
-                style={{ color: tech.color }}
-              />
-            ))}
-          </div>
-        </motion.div>
+        {/* ── Infinite Scrolling Skills Carousel ── */}
+        <SkillsMarquee duration={200} iconSize={32} showLabel={true} />
       </motion.div>
     </section>
   );
