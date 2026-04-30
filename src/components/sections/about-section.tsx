@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import PhotoCard from "@/components/ui/photocard";
 import { Plus, Minus, Trophy } from "lucide-react";
 import {
   aboutData,
@@ -64,15 +64,16 @@ export default function AboutSection() {
         >
           {/* Left: Portrait */}
           <motion.div variants={slideLeft} className="lg:col-span-2">
-            <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-2xl">
-              <Image
-                src="/avatar/avatar-02.png"
-                alt="Riza Fahdan Syahda — Portrait"
-                fill
-                sizes="(max-width: 1024px) 448px, 40vw"
-                className="object-cover object-top"
-              />
-            </div>
+            <PhotoCard
+              imageSrc="/avatar/avatar-02.png"
+              name="Riza Fahdan Syahda"
+              subtitle="Full-Stack Engineer"
+              avatarSrc="/avatar/avatar-01.png"
+              username="@kupzed"
+              isOnline={true}
+              ctaLabel="Contact Me"
+              ctaHref="https://wa.me/+628988449176"
+            />
           </motion.div>
 
           {/* Right: Text & Cards */}
