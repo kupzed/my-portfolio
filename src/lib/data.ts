@@ -214,8 +214,8 @@ export const aboutCards: AboutCard[] = [
   },
   {
     icon: Briefcase,
-    title: "Projects",
-    text: "Built multiple fullstack apps.",
+    title: "My Interest",
+    text: "Fullstack Developer, UI UX Design, AI, Web3.",
   },
 ];
 
