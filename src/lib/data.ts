@@ -54,6 +54,7 @@ import {
   SiGooglegemini,
   SiOpenai,
   SiDocker,
+  SiSupabase,
 } from "react-icons/si";
 import {
   FileCode2,
@@ -432,6 +433,7 @@ export const skillsByTab: Record<SkillTab, Skill[]> = {
     { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
     { name: "SQLite", icon: SiSqlite, color: "#003B57" },
     { name: "Firebase", icon: SiFirebase, color: "#DD2C00" },
+    { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
     { name: "Prisma", icon: SiPrisma, color: "#3178C6" },
     { name: "Sequelize", icon: SiSequelize, color: "#01AFEF" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "#306095" },
