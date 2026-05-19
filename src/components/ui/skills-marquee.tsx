@@ -1,10 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { slideUpFade } from "@/lib/motion";
-import { skillsByTab } from "@/lib/data";
-
-const allSkills = Object.values(skillsByTab).flat();
+import { allSkills } from "@/lib/skills";
 
 export interface SkillsMarqueeProps {
   duration?: number;
@@ -17,35 +15,36 @@ export function SkillsMarquee({
   iconSize = 40,
   showLabel = true,
 }: SkillsMarqueeProps) {
+  const shouldReduce = useReducedMotion();
+  const skillRows = shouldReduce ? [allSkills] : [allSkills, allSkills];
+
   return (
     <motion.div
       variants={slideUpFade}
-      className="my-16 w-full max-w-[100vw] overflow-hidden"
-      style={{
-        maskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-      }}
+      className="skills-marquee-mask my-16 w-full max-w-[100vw] overflow-hidden"
+      aria-label="Technology stack carousel"
     >
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
       <div
-        className="flex w-max py-4 hover:[animation-play-state:paused]"
-        style={{ animation: `marquee ${duration}s linear infinite` }}
+        className={
+          shouldReduce
+            ? "flex w-max py-4"
+            : "skills-marquee-track flex w-max py-4"
+        }
+        style={
+          {
+            "--marquee-duration": `${duration}s`,
+          } as React.CSSProperties
+        }
       >
-        {[...Array(2)].map((_, i) => (
+        {skillRows.map((row, rowIndex) => (
           <div
-            key={i}
+            key={rowIndex === 0 ? "primary-skills" : "duplicate-skills"}
+            aria-hidden={rowIndex > 0}
             className="flex w-max items-center gap-6 pr-6 sm:gap-8 sm:pr-8 md:gap-12 md:pr-12"
           >
-            {allSkills.map((tech, index) => (
+            {row.map((tech) => (
               <div
-                key={`${tech.name}-${index}`}
+                key={`${rowIndex}-${tech.id}`}
                 className="group flex cursor-default items-center gap-3"
               >
                 <tech.icon
@@ -57,6 +56,7 @@ export function SkillsMarquee({
                       "--icon-dark": tech.darkColor || tech.color,
                     } as React.CSSProperties
                   }
+                  aria-hidden="true"
                 />
                 {showLabel && (
                   <span className="text-sm font-semibold text-gray-500 transition-colors duration-300 group-hover:text-gray-900 dark:text-white/50 dark:group-hover:text-white sm:text-base">

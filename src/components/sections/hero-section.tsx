@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, FileText } from "lucide-react";
-import { heroData, socialLinks } from "@/lib/data";
+import { heroData, socialLinks } from "@/lib/profile";
 import { stagger, blurIn, slideUpFade } from "@/lib/motion";
 import { SkillsMarquee } from "@/components/ui/skills-marquee";
 
@@ -75,13 +75,6 @@ export default function HeroSection() {
           </span>
         </motion.a>
 
-        {/* <motion.p
-          variants={slideUpFade}
-          className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent"
-        >
-          {heroData.availability}
-        </motion.p> */}
-
         <motion.h1
           variants={blurIn}
           aria-label={`${heroData.role} from interface to database.`}
@@ -137,7 +130,7 @@ export default function HeroSection() {
             const Icon = social.icon;
             return (
               <a
-                key={social.label}
+                key={social.id}
                 href={social.href}
                 target={
                   social.href.startsWith("mailto:") ? undefined : "_blank"
@@ -162,7 +155,7 @@ export default function HeroSection() {
         >
           {heroData.quickStats.map((stat) => (
             <div
-              key={stat.label}
+              key={stat.id}
               className="supabase-card px-4 py-4 text-left sm:text-center"
             >
               <p className="text-xl font-bold text-gray-900 dark:text-white">

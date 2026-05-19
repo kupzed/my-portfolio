@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mail } from "lucide-react";
-import { navLinks, socialLinks } from "@/lib/data";
+import { navLinks, socialLinks } from "@/lib/profile";
 import { fadeIn, stagger, viewportOnce } from "@/lib/motion";
 
 export default function Footer() {
@@ -33,7 +33,7 @@ export default function Footer() {
               href="mailto:rizafahdansyahda3@gmail.com"
               className="mt-6 btn-scale btn-secondary inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition-colors"
             >
-              <Mail size={16} strokeWidth={2} />
+              <Mail size={16} strokeWidth={2} aria-hidden="true" />
               rizafahdansyahda3@gmail.com
             </a>
           </motion.div>
@@ -48,7 +48,7 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col space-y-3 text-sm">
               {navLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.id}>
                   <Link
                     href={link.href}
                     className="text-gray-600 dark:text-gray-400 transition-colors hover:text-accent"
@@ -72,7 +72,7 @@ export default function Footer() {
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
-                  <li key={social.label}>
+                  <li key={social.id}>
                     <a
                       href={social.href}
                       target="_blank"
@@ -80,7 +80,7 @@ export default function Footer() {
                       className="group flex w-fit items-center gap-2 text-gray-600 dark:text-gray-400 transition-colors hover:text-accent"
                     >
                       <span className="transition-transform group-hover:scale-110">
-                        <Icon size={18} strokeWidth={1.5} />
+                        <Icon size={18} strokeWidth={1.5} aria-hidden="true" />
                       </span>
                       <span>{social.label}</span>
                     </a>

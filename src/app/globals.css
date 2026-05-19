@@ -21,9 +21,11 @@
 /* ──────────────────────────────────────────
    Base styles
    ────────────────────────────────────────── */
-*,
-*::before,
-*::after {
+a,
+button,
+input,
+textarea,
+select {
   transition-property: color, background-color;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
@@ -52,6 +54,11 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .skills-marquee-track {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
@@ -103,6 +110,40 @@ body {
 .dark .supabase-card:hover {
   border-color: rgba(62, 207, 142, 0.3);
   background: rgba(62, 207, 142, 0.03);
+}
+
+@keyframes skillsMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.skills-marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.skills-marquee-track {
+  animation: skillsMarquee var(--marquee-duration, 40s) linear infinite;
+}
+
+.skills-marquee-track:hover {
+  animation-play-state: paused;
 }
 
 /* ──────────────────────────────────────────

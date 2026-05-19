@@ -1,7 +1,12 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { motion, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
 
 interface PhotoCardProps {
@@ -30,6 +35,7 @@ export default function PhotoCard({
 }: PhotoCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const shouldReduce = useReducedMotion();
 
   // Raw pointer values (–1 to 1)
   const rawX = useRef(0);
@@ -48,6 +54,7 @@ export default function PhotoCard({
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (shouldReduce) return;
       const card = cardRef.current;
       if (!card) return;
       const rect = card.getBoundingClientRect();
@@ -60,13 +67,14 @@ export default function PhotoCard({
       glareX.set(cx * 100);
       glareY.set(cy * 100);
     },
-    [springX, springY, glareX, glareY],
+    [springX, springY, glareX, glareY, shouldReduce],
   );
 
   const handleMouseEnter = useCallback(() => {
+    if (shouldReduce) return;
     setIsHovered(true);
     glareOpacity.set(1);
-  }, [glareOpacity]);
+  }, [glareOpacity, shouldReduce]);
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
@@ -110,16 +118,20 @@ export default function PhotoCard({
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
+        style={
+          shouldReduce
+            ? { transformStyle: "preserve-3d" }
+            : {
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }
+        }
         className="relative w-[300px] sm:w-[340px] cursor-pointer"
       >
         {/* Outer border glow ring */}
         <motion.div
-          animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
+          animate={isHovered && !shouldReduce ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.35 }}
           aria-hidden
           className="absolute -inset-[1.5px] rounded-[30px] pointer-events-none z-0"
@@ -158,7 +170,6 @@ export default function PhotoCard({
               fill
               sizes="(max-width: 640px) 300px, 340px"
               className="object-cover object-top grayscale"
-              priority
             />
 
             {/* Gradient overlay — bottom fade */}
@@ -177,7 +188,7 @@ export default function PhotoCard({
               className="absolute inset-0 z-30 pointer-events-none rounded-[28px]"
               style={{
                 background: glareGradient,
-                opacity: glareOpacity,
+                opacity: shouldReduce ? 0 : glareOpacity,
               }}
             />
 
@@ -189,7 +200,7 @@ export default function PhotoCard({
                 left: shimmerX,
                 background:
                   "linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%)",
-                opacity: isHovered ? 1 : 0,
+                opacity: isHovered && !shouldReduce ? 1 : 0,
                 transition: "opacity 0.3s",
               }}
             />
@@ -199,23 +210,9 @@ export default function PhotoCard({
               className="absolute top-0 left-0 right-0 z-40 p-6 pt-7"
               style={{ transform: "translateZ(20px)" }}
             >
-              {/* Decorative accent line */}
-              {/* <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: 0.4,
-                  duration: 0.6,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="mb-3 h-[2px] w-8 origin-left rounded-full"
-                style={{
-                  background: "linear-gradient(90deg, #71C4FF, #60496e)",
-                }}
-              /> */}
               <motion.h2
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={shouldReduce ? false : { opacity: 0, y: 10 }}
+                animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{
                   delay: 0.25,
                   duration: 0.7,
@@ -227,8 +224,8 @@ export default function PhotoCard({
                 {name}
               </motion.h2>
               <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={shouldReduce ? false : { opacity: 0, y: 8 }}
+                animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
                 transition={{
                   delay: 0.35,
                   duration: 0.7,
@@ -246,8 +243,8 @@ export default function PhotoCard({
 
             {/* ── Bottom Floating Info Panel ── */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={shouldReduce ? false : { opacity: 0, y: 16 }}
+              animate={shouldReduce ? undefined : { opacity: 1, y: 0 }}
               transition={{
                 delay: 0.5,
                 duration: 0.7,
@@ -312,8 +309,8 @@ export default function PhotoCard({
               {/* Right: CTA Button */}
               <motion.a
                 href={ctaHref}
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={shouldReduce ? undefined : { scale: 1.06 }}
+                whileTap={shouldReduce ? undefined : { scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 className="shrink-0 text-[12px] font-semibold px-4 py-2 rounded-full text-white"
                 style={{

@@ -14,7 +14,7 @@ A recruiter-ready fullstack developer portfolio for Riza Fahdan Syahda. The site
 - Featured case studies for Project Management System, CatatZ, and this portfolio.
 - Project proof with role, project type, impact, key responsibilities, stack, and live/source links.
 - Responsive single-page experience with dark/light theme support.
-- Accessible project detail modal with keyboard escape handling and focus restoration.
+- Accessible project detail modal with focus trap, Escape close, and focus restoration.
 
 ## Tech Stack
 
@@ -36,7 +36,12 @@ src/components/
   sections/        Hero, About, Skills, Projects, Contact
   ui/              Reusable UI pieces such as modal and photo card
 src/lib/
-  data.ts          Portfolio content, skills, projects, links
+  profile.ts       Hero, navigation, social, and profile links
+  about.ts         About, experience, education, and certifications
+  skills.ts        Categorized skill lists and marquee skill registry
+  projects.ts      Project case study content and stack icons
+  types.ts         Shared content model types
+  data.ts          Compatibility barrel that re-exports content modules
   motion.ts        Framer Motion variants and timing tokens
 public/
   avatar/          Profile images
@@ -61,7 +66,10 @@ npm run build
 
 ## Customization
 
-- Update personal copy, skills, project details, and links in `src/lib/data.ts`.
+- Update profile and links in `src/lib/profile.ts`.
+- Update experience, education, and certifications in `src/lib/about.ts`.
+- Update skills in `src/lib/skills.ts`.
+- Update project case studies in `src/lib/projects.ts`.
 - Adjust section composition in `src/app/page.tsx`.
 - Tune global theme tokens and shared utility classes in `src/app/globals.css`.
 - Replace thumbnails in `public/projects/` and avatar assets in `public/avatar/`.

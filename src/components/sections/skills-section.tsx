@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { skillsByTab, SKILL_TABS } from "@/lib/data";
-import type { Skill, SkillTab } from "@/lib/data";
+import { skillsByTab, SKILL_TABS } from "@/lib/skills";
+import type { Skill, SkillTab } from "@/lib/types";
 import {
   blurIn,
   scaleIn,
@@ -91,7 +91,7 @@ export default function SkillsSection() {
             >
               {skillsByTab[activeTab].map((skill) => (
                 <motion.div
-                  key={skill.name}
+                  key={skill.id}
                   variants={cardReveal}
                   whileHover={shouldReduce ? undefined : { y: -4, scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}

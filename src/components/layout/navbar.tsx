@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Monitor, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { navLinks } from "@/lib/data";
+import { navLinks } from "@/lib/profile";
 import { mobileMenuOverlay, mobileMenuItem } from "@/lib/motion";
 
 export default function Navbar() {
@@ -13,6 +13,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuId = "mobile-navigation";
 
   // Standard next-themes hydration pattern
   useEffect(() => {
@@ -48,9 +50,23 @@ export default function Navbar() {
         document.body.style.right = "";
         document.body.style.overflow = "";
         delete document.body.dataset.lockedScrollY;
-        window.scrollTo({ top: savedY, behavior: "instant" });
+        window.scrollTo({ top: savedY, behavior: "auto" });
       };
     }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
   // ── 3-state theme cycle: system → light → dark ──
@@ -80,13 +96,13 @@ export default function Navbar() {
   );
 
   const themeIcon = !mounted ? (
-    <Monitor size={18} />
+    <Monitor size={18} aria-hidden="true" />
   ) : theme === "light" ? (
-    <Sun size={18} />
+    <Sun size={18} aria-hidden="true" />
   ) : theme === "dark" ? (
-    <Moon size={18} />
+    <Moon size={18} aria-hidden="true" />
   ) : (
-    <Monitor size={18} />
+    <Monitor size={18} aria-hidden="true" />
   );
 
   return (
@@ -112,7 +128,7 @@ export default function Navbar() {
           {/* ── Desktop Nav Links ── */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li key={link.id}>
                 <a
                   href={link.href}
                   className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-200"
@@ -126,6 +142,7 @@ export default function Navbar() {
           {/* ── Desktop Right ── */}
           <div className="hidden md:flex items-center gap-4">
             <button
+              type="button"
               onClick={cycleTheme}
               aria-label="Toggle theme"
               suppressHydrationWarning
@@ -137,6 +154,7 @@ export default function Navbar() {
               href="https://wa.me/+628988449176"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Contact Riza on WhatsApp"
               className="btn-scale btn-primary inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold transition-colors"
             >
               Contact me
@@ -146,6 +164,7 @@ export default function Navbar() {
           {/* ── Mobile Right ── */}
           <div className="flex md:hidden items-center gap-2">
             <button
+              type="button"
               onClick={cycleTheme}
               aria-label="Toggle theme"
               suppressHydrationWarning
@@ -154,8 +173,12 @@ export default function Navbar() {
               {themeIcon}
             </button>
             <button
+              ref={menuButtonRef}
+              type="button"
               onClick={() => setMobileOpen((prev) => !prev)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls={mobileMenuId}
               suppressHydrationWarning
               className="flex h-9 w-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10"
             >
@@ -169,7 +192,7 @@ export default function Navbar() {
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <X size={20} />
+                    <X size={20} aria-hidden="true" />
                   </motion.span>
                 ) : (
                   <motion.span
@@ -179,7 +202,7 @@ export default function Navbar() {
                     exit={{ rotate: -90, opacity: 0 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <Menu size={20} />
+                    <Menu size={20} aria-hidden="true" />
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -192,6 +215,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id={mobileMenuId}
             variants={mobileMenuOverlay}
             initial="hidden"
             animate="visible"
@@ -201,7 +225,7 @@ export default function Navbar() {
             <ul className="flex flex-col items-center justify-center gap-10 py-16 min-h-[calc(100vh-4rem)]">
               {navLinks.map((link, i) => (
                 <motion.li
-                  key={link.href}
+                  key={link.id}
                   variants={mobileMenuItem}
                   initial="hidden"
                   animate="visible"
@@ -239,9 +263,10 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileOpen(false)}
+                  aria-label="Contact Riza on WhatsApp"
                   className="btn-scale inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold bg-accent text-background hover:bg-accent-dark transition-colors"
                 >
-                  Contact me <ArrowUpRight size={18} />
+                  Contact me <ArrowUpRight size={18} aria-hidden="true" />
                 </a>
               </motion.li>
             </ul>

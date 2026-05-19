@@ -10,7 +10,7 @@ import {
   experiences,
   educations,
   certifications,
-} from "@/lib/data";
+} from "@/lib/about";
 import {
   stagger,
   staggerCards,
@@ -25,8 +25,8 @@ import {
 } from "@/lib/motion";
 
 export default function AboutSection() {
-  const [openExp, setOpenExp] = useState<number | null>(null);
-  const [openEdu, setOpenEdu] = useState<number | null>(null);
+  const [openExp, setOpenExp] = useState<string | null>(null);
+  const [openEdu, setOpenEdu] = useState<string | null>(null);
   const shouldReduce = useReducedMotion();
 
   return (
@@ -92,7 +92,7 @@ export default function AboutSection() {
             >
               {aboutCards.map((card) => (
                 <motion.div
-                  key={card.title}
+                  key={card.id}
                   variants={cardReveal}
                   whileHover={shouldReduce ? undefined : { scale: 1.03, y: -3 }}
                   whileTap={shouldReduce ? undefined : { scale: 0.97 }}
@@ -103,6 +103,7 @@ export default function AboutSection() {
                     size={28}
                     className="mb-3 text-background dark:text-foreground"
                     strokeWidth={1.5}
+                    aria-hidden="true"
                   />
                   <h3 className="mb-1 text-base font-bold">{card.title}</h3>
                   <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
@@ -132,31 +133,49 @@ export default function AboutSection() {
             variants={fadeUp}
             className="flex flex-col border-t border-border-light dark:border-border"
           >
-            {experiences.map((exp, idx) => {
-              const isOpen = openExp === idx;
+            {experiences.map((exp) => {
+              const isOpen = openExp === exp.id;
+              const buttonId = `experience-button-${exp.id}`;
+              const panelId = `experience-panel-${exp.id}`;
+
               return (
                 <div
-                  key={idx}
-                  onClick={() => setOpenExp(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-border-light dark:border-border py-8 hover:bg-black/5 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
+                  key={exp.id}
+                  className="border-b border-border-light dark:border-border"
                 >
-                  <div className="flex items-start justify-between gap-6">
-                    <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors">
+                  <button
+                    id={buttonId}
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenExp(isOpen ? null : exp.id)}
+                    className="group -mx-4 flex w-[calc(100%+2rem)] items-start justify-between gap-6 rounded-2xl px-4 py-8 text-left transition-colors hover:bg-black/5 dark:hover:bg-white/2"
+                  >
+                    <span className="block">
+                      <span
+                        role="heading"
+                        aria-level={3}
+                        className="mb-2 block text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors"
+                      >
                         {exp.role}
-                      </h3>
-                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
+                      </span>
+                      <span className="block text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
                         {exp.date} | {exp.company}
-                      </p>
-                    </div>
-                    <button
-                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
-                      aria-label={isOpen ? "Collapse" : "Expand"}
-                    >
-                      {isOpen ? <Minus size={24} /> : <Plus size={24} />}
-                    </button>
-                  </div>
+                      </span>
+                    </span>
+                    <span className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white">
+                      {isOpen ? (
+                        <Minus size={24} aria-hidden="true" />
+                      ) : (
+                        <Plus size={24} aria-hidden="true" />
+                      )}
+                    </span>
+                  </button>
                   <motion.div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    aria-hidden={!isOpen}
                     initial={false}
                     animate={{
                       height: isOpen ? "auto" : 0,
@@ -166,9 +185,9 @@ export default function AboutSection() {
                     transition={accordionTransition}
                     className="overflow-hidden"
                   >
-                    <ul className="list-disc space-y-4 pl-5 text-sm leading-relaxed text-gray-700 marker:text-gray-400 dark:text-gray-300 md:text-base">
-                      {exp.description.map((desc, i) => (
-                        <li key={i}>{desc}</li>
+                    <ul className="list-disc space-y-4 pb-8 pl-5 text-sm leading-relaxed text-gray-700 marker:text-gray-400 dark:text-gray-300 md:text-base">
+                      {exp.description.map((desc) => (
+                        <li key={desc}>{desc}</li>
                       ))}
                     </ul>
                   </motion.div>
@@ -196,31 +215,49 @@ export default function AboutSection() {
             variants={fadeUp}
             className="flex flex-col border-t border-border-light dark:border-border"
           >
-            {educations.map((edu, idx) => {
-              const isOpen = openEdu === idx;
+            {educations.map((edu) => {
+              const isOpen = openEdu === edu.id;
+              const buttonId = `education-button-${edu.id}`;
+              const panelId = `education-panel-${edu.id}`;
+
               return (
                 <div
-                  key={idx}
-                  onClick={() => setOpenEdu(isOpen ? null : idx)}
-                  className="group cursor-pointer border-b border-border-light dark:border-border py-8 hover:bg-black/5 dark:hover:bg-white/2 px-4 -mx-4 rounded-2xl transition-colors"
+                  key={edu.id}
+                  className="border-b border-border-light dark:border-border"
                 >
-                  <div className="flex items-start justify-between gap-6">
-                    <div>
-                      <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors">
+                  <button
+                    id={buttonId}
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenEdu(isOpen ? null : edu.id)}
+                    className="group -mx-4 flex w-[calc(100%+2rem)] items-start justify-between gap-6 rounded-2xl px-4 py-8 text-left transition-colors hover:bg-black/5 dark:hover:bg-white/2"
+                  >
+                    <span className="block">
+                      <span
+                        role="heading"
+                        aria-level={3}
+                        className="mb-2 block text-2xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-accent md:text-3xl lg:text-4xl transition-colors"
+                      >
                         {edu.degree}
-                      </h3>
-                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
+                      </span>
+                      <span className="block text-sm font-medium text-gray-500 dark:text-gray-400 md:text-base">
                         {edu.date} | {edu.school}
-                      </p>
-                    </div>
-                    <button
-                      className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white"
-                      aria-label={isOpen ? "Collapse" : "Expand"}
-                    >
-                      {isOpen ? <Minus size={24} /> : <Plus size={24} />}
-                    </button>
-                  </div>
+                      </span>
+                    </span>
+                    <span className="mt-2 flex shrink-0 items-center justify-center text-gray-400 transition-transform duration-200 group-hover:scale-110 group-hover:text-gray-900 dark:text-gray-500 dark:group-hover:text-white">
+                      {isOpen ? (
+                        <Minus size={24} aria-hidden="true" />
+                      ) : (
+                        <Plus size={24} aria-hidden="true" />
+                      )}
+                    </span>
+                  </button>
                   <motion.div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    aria-hidden={!isOpen}
                     initial={false}
                     animate={{
                       height: isOpen ? "auto" : 0,
@@ -230,9 +267,9 @@ export default function AboutSection() {
                     transition={accordionTransition}
                     className="overflow-hidden"
                   >
-                    <div className="space-y-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 md:text-base">
-                      {edu.details.map((detail, i) => (
-                        <p key={i}>{detail}</p>
+                    <div className="space-y-4 pb-8 text-sm leading-relaxed text-gray-700 dark:text-gray-300 md:text-base">
+                      {edu.details.map((detail) => (
+                        <p key={detail}>{detail}</p>
                       ))}
                     </div>
                   </motion.div>
@@ -255,7 +292,7 @@ export default function AboutSection() {
               variants={fadeUp}
               className="mb-3 flex items-center justify-center gap-2 text-sm font-medium uppercase tracking-widest text-gray-500 dark:text-gray-400"
             >
-              <Trophy size={16} />
+              <Trophy size={16} aria-hidden="true" />
               <span>Recognition</span>
             </motion.div>
             <motion.h2
@@ -270,7 +307,7 @@ export default function AboutSection() {
           <div className="flex flex-col gap-4">
             {certifications.map((cert, idx) => (
               <motion.div
-                key={idx}
+                key={cert.id}
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={viewportOnceLess}
