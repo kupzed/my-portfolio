@@ -43,9 +43,8 @@ export default function ContactSection() {
             variants={fadeUp}
             className="mb-10 text-base leading-relaxed text-gray-600 dark:text-white/50 md:text-lg"
           >
-            Feel free to contact me. My inbox is always open. Whether you have
-            any questions or just want to say hello, I&apos;ll try my best to
-            back to you!
+            Have a role, freelance build, or product idea that needs a
+            fullstack developer? Send a message and I&apos;ll get back to you.
           </motion.p>
         </motion.div>
 
@@ -67,7 +66,8 @@ export default function ContactSection() {
               type="text"
               name="name"
               required
-              placeholder="Enter your name"
+              placeholder="Your name"
+              aria-label="Your name"
               suppressHydrationWarning
               className={inputClasses}
             />
@@ -75,7 +75,8 @@ export default function ContactSection() {
               type="email"
               name="email"
               required
-              placeholder="Enter your email"
+              placeholder="Your email"
+              aria-label="Your email"
               suppressHydrationWarning
               className={inputClasses}
             />
@@ -86,7 +87,8 @@ export default function ContactSection() {
               name="message"
               required
               rows={5}
-              placeholder="Enter your message"
+              placeholder="Tell me about the role, project, or collaboration"
+              aria-label="Message"
               className={`${inputClasses} min-h-[150px] resize-none`}
             />
           </motion.div>
@@ -100,7 +102,7 @@ export default function ContactSection() {
               transition={{ type: "spring", stiffness: 350, damping: 20 }}
               className="btn-scale btn-primary inline-flex items-center justify-center rounded-md px-5 py-2 text-sm font-semibold transition-colors"
             >
-              Submit now
+              Send message
             </motion.button>
           </motion.div>
         </motion.form>

@@ -1,6 +1,6 @@
-# 🚀 Kupzed's Portfolio
+# Kupzed Portfolio
 
-A high-performance, modern developer portfolio built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**. This project showcases professional work, technical skills, and provides a seamless way for recruiters and collaborators to get in touch.
+A recruiter-ready fullstack developer portfolio for Riza Fahdan Syahda. The site presents practical web application work across responsive UI, backend APIs, authentication, databases, deployment, and product-focused case studies.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
@@ -8,87 +8,64 @@ A high-performance, modern developer portfolio built with **Next.js 16**, **Reac
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
----
+## Focus
 
-## ✨ Features
+- Clear fullstack positioning for recruiters and hiring managers.
+- Featured case studies for Project Management System, CatatZ, and this portfolio.
+- Project proof with role, project type, impact, key responsibilities, stack, and live/source links.
+- Responsive single-page experience with dark/light theme support.
+- Accessible project detail modal with keyboard escape handling and focus restoration.
 
-- 🏎️ **Optimized Performance**: Leveraging Next.js 16's latest features for lightning-fast loads.
-- 🎨 **Modern Aesthetics**: Sleek UI with custom mesh backgrounds and Tailwind CSS 4.
-- 📱 **Fully Responsive**: Designed for all devices, from mobile to ultra-wide displays.
-- 🎭 **Smooth Animations**: Interactive experience powered by Framer Motion.
-- 🌓 **Dark/Light Mode**: Full theme customization support using `next-themes`.
-- 📁 **Project Showcase**: Detailed cards showcasing major works and contributions.
-- 🛠️ **Skills Visualization**: Organized display of technical expertise and tools.
-- ✉️ **Contact Flow**: Integrated contact section for direct outreach.
+## Tech Stack
 
-## 🛠️ Tech Stack
+- Framework: Next.js 16 App Router
+- UI: React 19, TypeScript, Tailwind CSS 4
+- Animation: Framer Motion
+- Icons: Lucide React and React Icons
+- Theme: next-themes
+- Deployment target: Vercel
 
-- **Core Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
-- **UI Library**: [React 19](https://react.dev/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
-- **Themes**: [Next Themes](https://github.com/pacocoursey/next-themes)
-- **Type Safety**: [TypeScript](https://www.typescriptlang.org/)
+## Project Structure
 
-## 🚀 Getting Started
+```txt
+src/app/
+  layout.tsx       Metadata, fonts, and theme provider shell
+  page.tsx         Single-page portfolio composition
+src/components/
+  layout/          Navbar and footer
+  sections/        Hero, About, Skills, Projects, Contact
+  ui/              Reusable UI pieces such as modal and photo card
+src/lib/
+  data.ts          Portfolio content, skills, projects, links
+  motion.ts        Framer Motion variants and timing tokens
+public/
+  avatar/          Profile images
+  projects/        Project thumbnails
+```
 
-Follow these steps to set up the project locally.
+## Getting Started
 
-### Prerequisites
+```bash
+npm install
+npm run dev
+```
 
-- Node.js 20.x or later
-- npm / yarn / pnpm
+Open [http://localhost:3000](http://localhost:3000).
 
-### Installation
+## Quality Checks
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/kupzed/my-portfolio.git
-   cd my-portfolio
-   ```
+```bash
+npm run lint
+npm run build
+```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+## Customization
 
-3. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
+- Update personal copy, skills, project details, and links in `src/lib/data.ts`.
+- Adjust section composition in `src/app/page.tsx`.
+- Tune global theme tokens and shared utility classes in `src/app/globals.css`.
+- Replace thumbnails in `public/projects/` and avatar assets in `public/avatar/`.
 
-4. **Open the application:**
-   Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+## License
 
-## 📦 Usage
-
-- **Customizing Content**: Update project details, skills, and personal info in `src/components/` and `src/app/page.tsx`.
-- **Styling**: Modify the global styles in `src/app/globals.css` or tweak Tailwind configurations.
-- **Components**: Add new sections by creating components in `src/components/` and importing them into the home page.
-
-## 🌐 Deployment
-
-The easiest way to deploy this portfolio is via the [Vercel Platform](https://vercel.com/new).
-
-1. Push your changes to GitHub.
-2. Connect your repository to Vercel.
-3. Vercel will automatically detect the Next.js setup and deploy your site.
-
-## 🤝 Contributing
-
-Contributions are welcome! If you find a bug or have a suggestion, feel free to open an issue or submit a pull request.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
-
----
-
-Built with ❤️ by [Kupzed](https://github.com/kupzed)
+Distributed under the MIT License. See [`LICENSE`](./LICENSE) for details.

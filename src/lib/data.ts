@@ -88,6 +88,12 @@ export interface HeroData {
   typewriterTexts: string[];
   contactHref: string;
   resumeHref: string;
+  availability: string;
+  trustSignals: string[];
+  quickStats: {
+    value: string;
+    label: string;
+  }[];
 }
 
 export interface AboutCard {
@@ -135,10 +141,17 @@ export interface ProjectLink {
 
 export interface Project {
   title: string;
+  role: string;
+  type: string;
   description: string;
+  impact: string;
+  highlights: string[];
   tech: TechIcon[];
   links: ProjectLink[];
   thumbnail: string;
+  featured?: boolean;
+  year?: string;
+  status?: string;
 }
 
 // ─────────────────────────────────────────────
@@ -172,16 +185,28 @@ export const socialLinks: SocialLink[] = [
 // ─────────────────────────────────────────────
 
 export const heroData: HeroData = {
-  role: "Junior Fullstack Developer",
+  role: "Fullstack Developer",
   description:
-    "I am a Junior Fullstack Developer based in Bogor, Indonesia. Passionate about building modern web applications and exploring emerging technologies like AI, Blockchain, and Web3.",
+    "I build production-minded web applications from responsive interfaces to backend APIs, databases, authentication, and deployment. Based in Bogor, Indonesia, I work across Next.js, React, SvelteKit, Laravel, Supabase, and PostgreSQL.",
   typewriterTexts: [
-    "Hi! I'm Riza Fahdan Syahda 👋",
-    "Or you can call me Kupzed 👋",
+    "Hi, I'm Riza Fahdan Syahda.",
+    "I turn product ideas into reliable web apps.",
   ],
   contactHref: "https://wa.me/+628988449176",
   resumeHref:
     "https://drive.google.com/file/d/1752AUQMoKYAMlMwdAe3U5eQZUnSWwl1n/view?usp=drive_link",
+  availability: "Open to fullstack roles, freelance builds, and product teams.",
+  trustSignals: [
+    "Next.js and React UI",
+    "Laravel and REST APIs",
+    "Supabase Auth and PostgreSQL",
+    "Deployment-ready delivery",
+  ],
+  quickStats: [
+    { value: "8+", label: "Projects shipped" },
+    { value: "2", label: "Production apps" },
+    { value: "Fullstack", label: "Frontend to database" },
+  ],
 };
 
 // ─────────────────────────────────────────────
@@ -194,24 +219,24 @@ export interface AboutData {
 
 export const aboutData: AboutData = {
   description:
-    "Learned a lot of new technologies on my own in recent years through the internet. Can work well with others in a team, put in hard work, be flexible, have strong honesty, and communicate clearly. High motivation and commitment to deliver the best possible performance for the company.",
+    "I am a self-driven fullstack developer who enjoys building practical systems with clean interfaces, secure data flow, and maintainable implementation. I have experience collaborating with teams, translating requirements into working features, and learning new tools quickly when a project needs them.",
 };
 
 export const aboutCards: AboutCard[] = [
   {
     icon: Code,
-    title: "Top Skills",
-    text: "React JS, SvelteKit, Next.js, Laravel.",
+    title: "Fullstack Delivery",
+    text: "React, Next.js, SvelteKit, Laravel, REST APIs, and databases.",
   },
   {
     icon: GraduationCap,
-    title: "Currently Into",
-    text: "AI Agents, Web3, Smart Contracts.",
+    title: "Product Mindset",
+    text: "Focused on usable flows, responsive UI, auth, data, and deployment.",
   },
   {
     icon: Briefcase,
-    title: "My Interest",
-    text: "Fullstack Developer, UI UX Design, AI, Web3.",
+    title: "Growing Edge",
+    text: "Exploring AI agents, Web3, smart contracts, and automation.",
   },
 ];
 
@@ -520,8 +545,20 @@ export const skillsByTab: Record<SkillTab, Skill[]> = {
 export const projects: Project[] = [
   {
     title: "Project Management System",
+    role: "Fullstack Developer",
+    type: "Enterprise project management system",
     description:
       "A robust enterprise resource and project management system built to streamline business operations. Features include comprehensive modules for managing projects, partners (Mitras), financial records, certificates, and daily activities with file attachment support. The platform ensures secure data handling through JWT authentication and role-based access control (RBAC), complemented by an interactive dashboard for seamless monitoring.",
+    impact:
+      "Delivered an integrated operational platform for project, partner, finance, certificate, and activity workflows with secure role-based access.",
+    highlights: [
+      "Built backend modules and REST API flows with Laravel.",
+      "Implemented responsive SvelteKit interfaces for operational teams.",
+      "Connected authentication, permissions, files, and dashboard monitoring.",
+    ],
+    featured: true,
+    year: "2025",
+    status: "Production work",
     tech: [
       { icon: SiSvelte, color: "#FF3E00", label: "SvelteKit" },
       { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
@@ -568,8 +605,20 @@ export const projects: Project[] = [
   },
   {
     title: "My Portfolio",
+    role: "Designer and Frontend Developer",
+    type: "Personal brand and recruiter portfolio",
     description:
       "A modern, responsive personal portfolio website crafted to showcase projects, skills, and professional background. Built with Next.js 16 and React 19 on a TypeScript foundation, the site features a sleek dark/light theme system powered by next-themes, fluid page animations using Framer Motion, and a fully responsive layout styled with Tailwind CSS v4. Key highlights include an animated typing hero section, an interactive project gallery with detail modals, a categorized skills showcase, and a functional contact form.",
+    impact:
+      "Created a fast, polished portfolio that turns work history, project proof, and contact paths into a recruiter-friendly single-page experience.",
+    highlights: [
+      "Built with Next.js App Router, React, TypeScript, and Tailwind CSS.",
+      "Added dark/light theme support, motion, project detail modals, and contact flow.",
+      "Structured content so recruiters can scan role fit, stack, and proof quickly.",
+    ],
+    featured: true,
+    year: "2026",
+    status: "Live",
     tech: [
       {
         icon: SiNextdotjs,
@@ -613,8 +662,20 @@ export const projects: Project[] = [
   },
   {
     title: "CatatZ",
+    role: "Fullstack Developer",
+    type: "Personal finance tracking PWA",
     description:
       "A fullstack personal finance tracking application built to help users manage income, expenses, transfers, balance corrections, accounts, categories, debts, receivables, and financial recaps. The app uses Supabase Auth and PostgreSQL for secure user data, supports PDF report export, and includes a PWA experience with install prompts, offline shell, update prompts, and offline transaction queueing.",
+    impact:
+      "Built a production-ready finance workflow with authentication, PostgreSQL-backed data, financial reports, and offline-friendly mobile behavior.",
+    highlights: [
+      "Implemented transaction, account, category, debt, receivable, and recap flows.",
+      "Integrated Supabase Auth, PostgreSQL, protected data access, and deployment config.",
+      "Added PWA install behavior, offline shell, update prompts, and transaction queueing.",
+    ],
+    featured: true,
+    year: "2026",
+    status: "Live",
     tech: [
       {
         icon: SiNextdotjs,
@@ -658,8 +719,19 @@ export const projects: Project[] = [
   },
   {
     title: "Project Management System V2",
+    role: "Frontend Developer",
+    type: "Enterprise UI modernization",
     description:
       "The second iteration of the enterprise management platform, featuring a completely overhauled, highly responsive user interface. This version focuses on a superior user experience by introducing dark mode support, a more intuitive modern layout, and advanced data filtering systems optimized separately for mobile and desktop views. It seamlessly connects to the existing secure backend to manage projects, financial records, partners, and certificates with improved speed and accessibility.",
+    impact:
+      "Modernized the operational interface with faster scanning, stronger responsive behavior, dark mode, and filtering patterns for field and desktop users.",
+    highlights: [
+      "Rebuilt the frontend experience with SvelteKit, TypeScript, and Tailwind CSS.",
+      "Designed mobile and desktop filtering patterns for operational data.",
+      "Connected the new interface to the existing secure Laravel backend.",
+    ],
+    year: "2026",
+    status: "Production work",
     tech: [
       { icon: SiSvelte, color: "#FF3E00", label: "SvelteKit" },
       { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
@@ -705,8 +777,19 @@ export const projects: Project[] = [
   },
   {
     title: "Inner Strength",
+    role: "Frontend Developer and UI Contributor",
+    type: "Mental health platform prototype",
     description:
       "Sebuah platform kesehatan mental komprehensif yang dirancang untuk membantu pengguna mengelola kondisi psikologis seperti Anxiety, Bipolar, dan Depresi. Fitur utama mencakup sistem konsultasi online/offline dengan terapis profesional, komunitas berbagi antar pengguna, konten edukasi interaktif, serta dashboard manajemen data pasien dan jadwal konsultasi yang terintegrasi.",
+    impact:
+      "Helped shape a multi-feature mental health prototype with consultation, community, education, and dashboard flows for an academic team project.",
+    highlights: [
+      "Developed responsive React interfaces with Tailwind CSS.",
+      "Connected frontend screens to Node.js, Express, and database-backed flows.",
+      "Collaborated on user-facing product flows and prototype presentation.",
+    ],
+    year: "2024",
+    status: "Prototype",
     tech: [
       { icon: SiReact, color: "#61DAFB", label: "React.js" },
       { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
@@ -750,8 +833,19 @@ export const projects: Project[] = [
   },
   {
     title: "Graphic Design & Photography Portfolio",
+    role: "Graphic Designer and Photographer",
+    type: "Creative work showcase",
     description:
       "A comprehensive showcase of creative works featuring graphic design, professional photography, and user interface design. This portfolio highlights expertise in social media design, branding, visual identification, and creative content creation.",
+    impact:
+      "Packaged visual design and photography work into a public creative portfolio that supports the broader product design story.",
+    highlights: [
+      "Produced social media visuals, branding assets, and publication materials.",
+      "Edited photography and visual documentation for events and campaigns.",
+      "Presented creative range through Behance and shared design files.",
+    ],
+    year: "2023",
+    status: "Published",
     tech: [
       {
         icon: SiAdobeillustrator,
@@ -783,8 +877,19 @@ export const projects: Project[] = [
   },
   {
     title: "Go Travel",
+    role: "UI/UX Designer",
+    type: "Travel booking mobile prototype",
     description:
       "A comprehensive UI/UX mockup for an open and private trip application focused on nature tourism. Designed to simplify travel planning, the prototype features intuitive destination discovery, quick reviews, an integrated booking and payment system, as well as real-time messaging. The interface was carefully crafted to ensure a seamless and engaging user experience for travelers.",
+    impact:
+      "Designed a complete travel booking prototype that turns destination discovery, reviews, booking, payment, and messaging into one guided flow.",
+    highlights: [
+      "Mapped discovery-to-booking user journeys for nature tourism.",
+      "Designed high-fidelity Figma screens and interactive prototype states.",
+      "Focused on quick scanning, trust, and booking clarity.",
+    ],
+    year: "2024",
+    status: "Prototype",
     tech: [{ icon: SiFigma, color: "#F24E1E", label: "Figma" }],
     links: [
       {
@@ -802,8 +907,19 @@ export const projects: Project[] = [
   },
   {
     title: "Pencatatan Keuangan",
+    role: "UI/UX Designer",
+    type: "Personal finance mobile prototype",
     description:
       "A comprehensive UI/UX design for an Android-based personal financial tracking application. Developed using the Design Thinking methodology, this project focuses on creating an intuitive and user-friendly mobile experience to help users effortlessly record, monitor, and manage their daily income and expenses.",
+    impact:
+      "Designed a mobile-first finance tracking concept that helps users record, monitor, and understand daily income and expense activity.",
+    highlights: [
+      "Used Design Thinking to shape the recording and monitoring workflow.",
+      "Created a Figma prototype for daily personal finance actions.",
+      "Prioritized simple entry, readable summaries, and mobile usability.",
+    ],
+    year: "2024",
+    status: "Prototype",
     tech: [{ icon: SiFigma, color: "#F24E1E", label: "Figma" }],
     links: [
       {

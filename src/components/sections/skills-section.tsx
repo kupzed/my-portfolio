@@ -1,65 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiNextdotjs,
-  SiSvelte,
-  SiReactrouter,
-  SiBootstrap,
-  SiTailwindcss,
-  SiAxios,
-  SiPhp,
-  SiLaravel,
-  SiPython,
-  SiNodedotjs,
-  SiGo,
-  SiMysql,
-  SiMongodb,
-  SiSqlite,
-  SiFirebase,
-  SiPrisma,
-  SiSequelize,
-  SiPostgresql,
-  SiExpress,
-  SiJsonwebtokens,
-  SiVite,
-  SiNpm,
-  SiPostman,
-  SiVercel,
-  SiApache,
-  SiWordpress,
-  SiFigma,
-  SiFramer,
-  SiGit,
-  SiGithub,
-  SiGithubactions,
-  SiLinux,
-  SiUbuntu,
-  SiWeb3Dotjs,
-  SiSolidity,
-  SiAdobeillustrator,
-  SiAdobephotoshop,
-  SiAdobelightroom,
-  SiAdobepremierepro,
-  SiCoreldraw,
-  SiAdobeacrobatreader,
-  SiAdobeaftereffects,
-  SiAdobeaudition,
-  SiCanva,
-  SiBehance,
-  SiAnthropic,
-  SiGooglegemini,
-  SiOpenai,
-  SiDocker,
-} from "react-icons/si";
-import { FileCode2 } from "lucide-react";
 import { skillsByTab, SKILL_TABS } from "@/lib/data";
 import type { Skill, SkillTab } from "@/lib/data";
 import {
@@ -69,65 +12,6 @@ import {
   cardReveal,
   viewportOnceMore,
 } from "@/lib/motion";
-
-// Re-export icon imports so tree-shaking keeps them (they're referenced via data.ts)
-void [
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiTypescript,
-  SiReact,
-  SiNextdotjs,
-  SiSvelte,
-  SiReactrouter,
-  SiBootstrap,
-  SiTailwindcss,
-  SiAxios,
-  SiPhp,
-  SiLaravel,
-  SiPython,
-  SiNodedotjs,
-  SiGo,
-  SiMysql,
-  SiMongodb,
-  SiSqlite,
-  SiFirebase,
-  SiPrisma,
-  SiSequelize,
-  SiPostgresql,
-  SiExpress,
-  SiJsonwebtokens,
-  SiVite,
-  SiNpm,
-  SiPostman,
-  SiVercel,
-  SiApache,
-  SiWordpress,
-  SiFigma,
-  SiFramer,
-  SiGit,
-  SiGithub,
-  SiGithubactions,
-  SiLinux,
-  SiUbuntu,
-  SiWeb3Dotjs,
-  SiSolidity,
-  SiAdobeillustrator,
-  SiAdobephotoshop,
-  SiAdobelightroom,
-  SiAdobepremierepro,
-  SiCoreldraw,
-  SiAdobeacrobatreader,
-  SiAdobeaftereffects,
-  SiAdobeaudition,
-  SiCanva,
-  SiBehance,
-  SiAnthropic,
-  SiGooglegemini,
-  SiOpenai,
-  SiDocker,
-  FileCode2,
-];
 
 export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState<SkillTab>("Frontend");
@@ -146,7 +30,6 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="relative px-5 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        {/* ── Heading — blurIn for cinematic focus ── */}
         <motion.h2
           variants={blurIn}
           initial="hidden"
@@ -157,7 +40,6 @@ export default function SkillsSection() {
           My Skills
         </motion.h2>
 
-        {/* ── Tab Navigation with sliding pill ── */}
         <motion.div
           variants={scaleIn}
           initial="hidden"
@@ -165,16 +47,24 @@ export default function SkillsSection() {
           viewport={viewportOnceMore}
           className="mb-10 flex justify-center"
         >
-          <div className="flex border-b border-border-light dark:border-border gap-0">
+          <div
+            role="tablist"
+            aria-label="Skill categories"
+            className="flex gap-0 border-b border-border-light dark:border-border"
+          >
             {SKILL_TABS.map((tab) => (
               <motion.button
                 key={tab}
+                type="button"
+                role="tab"
+                aria-selected={activeTab === tab}
+                aria-controls={`skills-panel-${tab}`}
                 onClick={() => setActiveTab(tab)}
                 suppressHydrationWarning
                 whileHover={shouldReduce ? undefined : { scale: 1.02 }}
                 whileTap={shouldReduce ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className={`relative px-5 py-3 text-sm font-medium transition-colors duration-200 -mb-px border-b-2 ${
+                className={`relative -mb-px border-b-2 px-5 py-3 text-sm font-medium transition-colors duration-200 ${
                   activeTab === tab
                     ? "border-accent text-background dark:text-foreground"
                     : "border-transparent text-gray-500 hover:text-background dark:text-foreground/40 dark:hover:text-foreground/70"
@@ -186,11 +76,13 @@ export default function SkillsSection() {
           </div>
         </motion.div>
 
-        {/* ── Skill Cards Grid ── */}
         <div className="min-h-[260px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
+              id={`skills-panel-${activeTab}`}
+              role="tabpanel"
+              aria-label={`${activeTab} skills`}
               variants={staggerWithExit}
               initial="hidden"
               animate="visible"
@@ -214,9 +106,10 @@ export default function SkillsSection() {
                     <skill.icon
                       size={48}
                       style={{ color: getIconColor(skill) }}
+                      aria-hidden="true"
                     />
                   </motion.div>
-                  <span className="text-sm font-medium text-gray-600 dark:text-white/60 transition-colors group-hover:text-gray-900 dark:group-hover:text-white/90 text-center">
+                  <span className="text-center text-sm font-medium text-gray-600 transition-colors group-hover:text-gray-900 dark:text-white/60 dark:group-hover:text-white/90">
                     {skill.name}
                   </span>
                 </motion.div>
