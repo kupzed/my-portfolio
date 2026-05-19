@@ -40,6 +40,8 @@ import {
   SiGithubactions,
   SiLinux,
   SiUbuntu,
+  SiSupabase,
+  SiPostgresql,
 } from "react-icons/si";
 import { projects } from "@/lib/data";
 import type { Project, TechIcon } from "@/lib/data";
@@ -87,6 +89,8 @@ void [
   SiGithubactions,
   SiLinux,
   SiUbuntu,
+  SiSupabase,
+  SiPostgresql,
 ];
 
 export default function PortfolioSection() {

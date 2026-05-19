@@ -117,12 +117,7 @@ export interface Skill {
   darkColor?: string;
 }
 
-export const SKILL_TABS = [
-  "Frontend",
-  "Backend",
-  "Tools & Tech",
-  "Design",
-] as const;
+export const SKILL_TABS = ["Frontend", "Backend", "Tech", "Design"] as const;
 export type SkillTab = (typeof SKILL_TABS)[number];
 
 export interface TechIcon {
@@ -450,7 +445,7 @@ export const skillsByTab: Record<SkillTab, Skill[]> = {
       darkColor: "#ffffff",
     },
   ],
-  "Tools & Tech": [
+  Tech: [
     { name: "Vite", icon: SiVite, color: "#646CFF" },
     { name: "NPM", icon: SiNpm, color: "#CB3837" },
     { name: "Postman", icon: SiPostman, color: "#FF6C37" },
@@ -615,6 +610,51 @@ export const projects: Project[] = [
       },
     ],
     thumbnail: "/projects/my-portfolio.png",
+  },
+  {
+    title: "CatatZ",
+    description:
+      "A fullstack personal finance tracking application built to help users manage income, expenses, transfers, balance corrections, accounts, categories, debts, receivables, and financial recaps. The app uses Supabase Auth and PostgreSQL for secure user data, supports PDF report export, and includes a PWA experience with install prompts, offline shell, update prompts, and offline transaction queueing.",
+    tech: [
+      {
+        icon: SiNextdotjs,
+        color: "#000000",
+        darkColor: "#ffffff",
+        label: "Next.js",
+      },
+      { icon: SiReact, color: "#61DAFB", label: "React" },
+      { icon: SiTypescript, color: "#3178C6", label: "TypeScript" },
+      { icon: SiTailwindcss, color: "#06B6D4", label: "Tailwind CSS" },
+      { icon: SiSupabase, color: "#3ECF8E", label: "Supabase" },
+      { icon: SiPostgresql, color: "#4169E1", label: "PostgreSQL" },
+      {
+        icon: SiVercel,
+        color: "#000000",
+        darkColor: "#ffffff",
+        label: "Vercel",
+      },
+      { icon: SiNpm, color: "#CB3837", label: "NPM" },
+      { icon: SiGit, color: "#F05032", label: "Git" },
+      {
+        icon: SiGithub,
+        color: "#181717",
+        darkColor: "#e6edf3",
+        label: "GitHub",
+      },
+    ],
+    links: [
+      {
+        label: "Live Demo",
+        href: "https://catatz.vercel.app",
+        variant: "primary",
+      },
+      {
+        label: "Source Code",
+        href: "https://github.com/kupzed/catatz",
+        variant: "secondary",
+      },
+    ],
+    thumbnail: "/projects/catatz.png",
   },
   {
     title: "Project Management System V2",
