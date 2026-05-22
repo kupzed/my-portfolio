@@ -36,21 +36,37 @@ export default function Navbar() {
   useEffect(() => {
     if (mobileOpen) {
       const scrollY = window.scrollY;
+
+      const html = document.documentElement;
+      const originalScrollBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
       document.body.style.right = "0";
       document.body.style.overflow = "hidden";
       document.body.dataset.lockedScrollY = String(scrollY);
+
+      html.style.scrollBehavior = originalScrollBehavior;
+
       return () => {
         const savedY = Number(document.body.dataset.lockedScrollY ?? 0);
+
+        const htmlElement = document.documentElement;
+        const prevScrollBehavior = htmlElement.style.scrollBehavior;
+        htmlElement.style.scrollBehavior = "auto";
+
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
         document.body.style.right = "";
         document.body.style.overflow = "";
         delete document.body.dataset.lockedScrollY;
-        window.scrollTo({ top: savedY, behavior: "auto" });
+        
+        window.scrollTo(0, savedY);
+
+        htmlElement.style.scrollBehavior = prevScrollBehavior;
       };
     }
   }, [mobileOpen]);

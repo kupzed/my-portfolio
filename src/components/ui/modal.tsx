@@ -50,11 +50,18 @@ export default function Modal({
     const scrollY = window.scrollY;
     const previouslyFocused = document.activeElement;
 
+    const html = document.documentElement;
+    const originalScrollBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+
     document.body.style.position = "fixed";
     document.body.style.top = `-${scrollY}px`;
     document.body.style.left = "0";
     document.body.style.right = "0";
     document.body.style.overflow = "hidden";
+
+    html.style.scrollBehavior = originalScrollBehavior;
+
     requestAnimationFrame(() => {
       const dialog = dialogRef.current;
       if (!dialog) return;
@@ -96,12 +103,20 @@ export default function Modal({
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      
+      const htmlElement = document.documentElement;
+      const prevScrollBehavior = htmlElement.style.scrollBehavior;
+      htmlElement.style.scrollBehavior = "auto";
+
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.left = "";
       document.body.style.right = "";
       document.body.style.overflow = "";
-      window.scrollTo({ top: scrollY, behavior: "auto" });
+      
+      window.scrollTo(0, scrollY);
+      
+      htmlElement.style.scrollBehavior = prevScrollBehavior;
 
       if (previouslyFocused instanceof HTMLElement) {
         previouslyFocused.focus();
