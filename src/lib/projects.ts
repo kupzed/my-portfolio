@@ -79,7 +79,7 @@ export const projects: Project[] = [
       "Implemented responsive SvelteKit interfaces for operational teams.",
       "Connected authentication, permissions, files, and dashboard monitoring.",
     ],
-    featured: true,
+    // featured: true,
     year: "2025",
     status: "Production work",
     tech: [
@@ -117,6 +117,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/project-management.png",
+    bgColor: "#262626",
   },
   {
     id: "my-portfolio",
@@ -148,7 +149,12 @@ export const projects: Project[] = [
       tech("vercel", "Vercel", SiVercel, "#000000", "#ffffff"),
     ],
     links: [
-      projectLink("live-demo", "Live Demo", "https://kupzed.vercel.app", "primary"),
+      projectLink(
+        "live-demo",
+        "Live Demo",
+        "https://kupzed.vercel.app",
+        "primary",
+      ),
       projectLink(
         "source-code",
         "Source Code",
@@ -157,6 +163,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/my-portfolio.png",
+    bgColor: "#4dad84",
   },
   {
     id: "catatz",
@@ -188,7 +195,12 @@ export const projects: Project[] = [
       tech("github", "GitHub", SiGithub, "#181717", "#e6edf3"),
     ],
     links: [
-      projectLink("live-demo", "Live Demo", "https://catatz.vercel.app", "primary"),
+      projectLink(
+        "live-demo",
+        "Live Demo",
+        "https://catatz.vercel.app",
+        "primary",
+      ),
       projectLink(
         "source-code",
         "Source Code",
@@ -197,6 +209,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/catatz.png",
+    bgColor: "#5252FF",
   },
   {
     id: "project-management-system-v2",
@@ -212,6 +225,7 @@ export const projects: Project[] = [
       "Designed mobile and desktop filtering patterns for operational data.",
       "Connected the new interface to the existing secure Laravel backend.",
     ],
+    featured: true,
     year: "2026",
     status: "Production work",
     tech: [
@@ -248,6 +262,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/project-management-v2.png",
+    bgColor: "#23183b",
   },
   {
     id: "inner-strength",
@@ -297,6 +312,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/innerstrength.png",
+    bgColor: "#055777",
   },
   {
     id: "graphic-design-photography-portfolio",
@@ -315,7 +331,12 @@ export const projects: Project[] = [
     year: "2023",
     status: "Published",
     tech: [
-      tech("adobe-illustrator", "Adobe Illustrator", SiAdobeillustrator, "#FF9A00"),
+      tech(
+        "adobe-illustrator",
+        "Adobe Illustrator",
+        SiAdobeillustrator,
+        "#FF9A00",
+      ),
       tech("adobe-photoshop", "Adobe Photoshop", SiAdobephotoshop, "#31A8FF"),
       tech("adobe-lightroom", "Adobe Lightroom", SiAdobelightroom, "#31A8FF"),
       tech(
@@ -341,6 +362,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/graphic-design-portfolio.png",
+    bgColor: "#0b3a22",
   },
   {
     id: "go-travel",
@@ -374,6 +396,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/gotravel.png",
+    bgColor: "#bc3f00",
   },
   {
     id: "pencatatan-keuangan",
@@ -407,5 +430,6 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/pencatatan-keuangan.png",
+    bgColor: "#00631c",
   },
 ];

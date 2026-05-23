@@ -102,4 +102,5 @@ export interface Project {
   featured?: boolean;
   year?: string;
   status?: string;
+  bgColor?: string;
 }
