@@ -38,7 +38,7 @@ export const experiences: Experience[] = [
     id: "indogreen-fullstack",
     role: "Fullstack Developer",
     company: "PT. Indogreen Technology And Management",
-    date: "May 2025 - Apr 2026",
+    date: "May 2025 - Jul 2026",
     description: [
       "Built, developed, and maintained the integrated Project Management System version 1 and version 2 (frontend-v2) to support operational solutions in the Solar Power Plant (PLTS) sector.",
       "Designed robust backend architectures using Laravel, including the creation of project data management systems and secure authentication.",
