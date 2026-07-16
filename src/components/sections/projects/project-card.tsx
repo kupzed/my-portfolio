@@ -60,30 +60,32 @@ export function ProjectCard({
         </div>
 
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
-        <div className="absolute left-3 top-3 flex items-center gap-2 z-10">
-          {project.featured && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-background">
-              <Sparkles size={13} aria-hidden="true" />
-              Featured
-            </span>
-          )}
-          {project.status && (
-            <span className="rounded-full bg-black/60 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur">
-              {project.status}
-            </span>
-          )}
-        </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-          <span>{project.type}</span>
-          {project.year && (
-            <>
-              <span aria-hidden="true">/</span>
-              <span>{project.year}</span>
-            </>
-          )}
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+          <div className="flex flex-wrap items-center gap-2">
+            <span>{project.type}</span>
+            {project.year && (
+              <>
+                <span aria-hidden="true">/</span>
+                <span>{project.year}</span>
+              </>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-1.5 normal-case font-medium select-none">
+            {project.featured && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-background tracking-normal">
+                <Sparkles size={10} aria-hidden="true" />
+                Featured
+              </span>
+            )}
+            {project.status && (
+              <span className="rounded-full bg-black/80 dark:bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white dark:text-gray-200 backdrop-blur tracking-normal">
+                {project.status}
+              </span>
+            )}
+          </div>
         </div>
 
         <h3
@@ -120,19 +122,21 @@ export function ProjectCard({
           />
         </div>
 
-        <motion.button
-          type="button"
-          onClick={() => onOpen(project)}
-          suppressHydrationWarning
-          whileHover={shouldReduce ? undefined : { scale: 1.03 }}
-          whileTap={shouldReduce ? undefined : { scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          className="btn-scale btn-primary mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
-          aria-label={`View ${project.title} case study details`}
-        >
-          View case study
-          <ArrowUpRight size={15} aria-hidden="true" />
-        </motion.button>
+        <div className="mt-auto pt-6">
+          <motion.button
+            type="button"
+            onClick={() => onOpen(project)}
+            suppressHydrationWarning
+            whileHover={shouldReduce ? undefined : { scale: 1.03 }}
+            whileTap={shouldReduce ? undefined : { scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="btn-scale btn-primary inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors"
+            aria-label={`View ${project.title} case study details`}
+          >
+            View case study
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </motion.button>
+        </div>
       </div>
     </motion.article>
   );

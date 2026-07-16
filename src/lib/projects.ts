@@ -79,7 +79,7 @@ export const projects: Project[] = [
       "Implemented responsive SvelteKit interfaces for operational teams.",
       "Connected authentication, permissions, files, and dashboard monitoring.",
     ],
-    // featured: true,
+    featured: true,
     year: "2025",
     status: "Production work",
     tech: [
@@ -209,7 +209,7 @@ export const projects: Project[] = [
       ),
     ],
     thumbnail: "/projects/catatz.png",
-    bgColor: "#5252FF",
+    bgColor: "#0052FF",
   },
   {
     id: "project-management-system-v2",
@@ -225,7 +225,6 @@ export const projects: Project[] = [
       "Designed mobile and desktop filtering patterns for operational data.",
       "Connected the new interface to the existing secure Laravel backend.",
     ],
-    featured: true,
     year: "2026",
     status: "Production work",
     tech: [
